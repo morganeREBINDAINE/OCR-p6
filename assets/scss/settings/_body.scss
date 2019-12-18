@@ -1,0 +1,22 @@
+body {
+  // general
+  font-family: $font;
+  a {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  // header
+  .logo {
+    width: 90px;
+    position: absolute;
+    top: 0;
+  }
+
+  // footer
+  footer {
+    background: #dedede;
+    padding: 40px 0;
+  }
+}
