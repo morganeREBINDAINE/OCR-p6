@@ -1,0 +1,77 @@
+@mixin resp-tablet {
+	@media only screen and (min-width: ($breakpoint-tablet)) {
+		@content;
+	}
+}
+
+@mixin resp-desktop {
+	@media only screen and (min-width: ($breakpoint-desktop)) {
+		@content;
+	}
+}
+
+@mixin resp-largescreen {
+	@media only screen and (min-width: ($breakpoint-largescreen)) {
+		@content;
+	}
+}
+
+@mixin display-flex {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flexbox;
+	display: -o-flex;
+	display: flex;
+}
+
+@mixin flex-direction($mode) {
+	-webkit-flex-direction: $mode;
+	   -moz-flex-direction: $mode;
+	    -ms-flex-direction: $mode;
+	     -o-flex-direction: $mode;
+	        flex-direction: $mode;
+}
+
+@mixin justify-content($mode) {
+	-webkit-justify-content: $mode;
+	   -moz-justify-content: $mode;
+	    -ms-justify-content: $mode;
+	     -o-justify-content: $mode;
+	        justify-content: $mode;
+}
+
+@mixin align-items($mode) {
+	-webkit-align-items: $mode;
+	   -moz-align-items: $mode;
+	    -ms-align-items: $mode;
+	     -o-align-items: $mode;
+	        align-items: $mode;
+}
+
+@mixin flex-wrap($mode) {
+	-webkit-flex-wrap: $mode;
+	   -moz-flex-wrap: $mode;
+	    -ms-flex-wrap: $mode;
+	     -o-flex-wrap: $mode;
+	        flex-wrap: $mode;
+}
+
+@mixin order($position) {
+	-webkit-order: $position;
+	   -moz-order: $position;
+	    -ms-order: $position;
+	     -o-order: $position;
+	        order: $position;
+}
+
+@mixin border-radius($radius) {
+	-webkit-border-radius: $radius;
+	   -moz-border-radius: $radius;
+	        border-radius: $radius;
+}
+
+@mixin box-shadow($values) {
+	-webkit-box-shadow: $values;
+	   -moz-box-shadow: $values;
+	        box-shadow: $values;
+}

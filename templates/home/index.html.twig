@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="homepage">
+        <div id="full-width-img">
+            <div class="w-100 text-center">
+                <a href="#tricks" class="arrow-down">
+                    <i class="fas fa-arrow-down"></i>
+                </a>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row tricks" id="tricks">
+                {% for trick in tricks %}
+                    <div class="col-sm col-trick">
+                        <div class="trick-card">
+                            <div class="trick-card-img"></div>
+                            <div class="row align-items-center trick-card-bottom">
+                                <div class="col-8">
+                                    <a href="#">{{ trick.name }}</a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="#"><i class="fas fa-pen"></i></a>
+                                    <a href="#"><i class="fas fa-trash-alt"></i></a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
