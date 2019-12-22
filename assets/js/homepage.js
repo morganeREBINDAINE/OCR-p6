@@ -3,7 +3,7 @@ $('#full-width-img').css('height', (window.innerHeight-55))
 
 // animate arrow down
 $(function(){
-    $('.arrow-down').delay( 2000 ).fadeIn( 800 )
+    $('.arrow-down').delay( 1000 ).fadeIn( 800 )
     setTimeout(function(){
         let started = false
         const addBounce = () => {

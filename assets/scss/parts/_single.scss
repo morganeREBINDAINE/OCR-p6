@@ -1,0 +1,98 @@
+#single-trick {
+  @include resp-tablet {
+    min-height: 1000px;
+  }
+  .background-img {
+      @include resp-tablet {
+        width: 100%;
+        height: 500px;
+        background-size: cover;
+        background-image: url(/images/mounts.jpg);
+        background-position: center;
+        opacity: 0.5;
+      }
+  }
+
+  .trick {
+    position: relative;
+    @include resp-tablet {
+      height: 500px;
+    }
+  }
+  .content {
+    padding: 10px;
+    width: 100%;
+    margin-top: 10px;
+
+    @include resp-tablet {
+      position: absolute;
+      top: -350px;
+    }
+
+    &-container {
+      margin: auto;
+      width: 90%;
+      max-width: 700px;
+      @include resp-desktop {
+        max-width: 1000px;
+      }
+    }
+
+    &-details {
+      width: 100%;
+      background: $white;
+      box-shadow: 0 0 15px black;
+      overflow: hidden;
+      border-radius: 10px;
+
+      @include resp-tablet {
+        border-radius: 10px;
+      }
+    }
+
+    &-img {
+      height: 300px;
+      background: yellow;
+      width: 100%;
+
+      &-icons {
+        position: absolute;
+        right: 0;
+        top: 0;
+        font-size: 23px;
+        background: $grey;
+        padding: 10px;
+        border-bottom-left-radius: 10px;
+
+        .fas.fa-pen {
+          margin-right: 12px;
+        }
+      }
+    }
+
+    &-content {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .btn {
+      margin-bottom: 20px;
+    }
+
+    .comments-area {
+      margin: 40px auto;
+      form {
+        width: 90%;
+        margin: auto;
+
+        button {
+          margin-top: 10px;
+        }
+      }
+
+      h3 {
+        margin-bottom: 15px;
+      }
+    }
+  }
+}
