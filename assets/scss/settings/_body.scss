@@ -8,10 +8,14 @@ body {
   }
 
   // header
-  .logo {
-    width: 90px;
-    position: absolute;
-    top: 0;
+  .navbar {
+    text-align: center;
+
+    .logo {
+      width: 90px;
+      position: absolute;
+      top: 0;
+    }
   }
 
   // footer
@@ -19,4 +23,9 @@ body {
     background: #dedede;
     padding: 40px 0;
   }
+}
+
+//loader
+.loader {
+  display: none;
 }
