@@ -10,6 +10,16 @@ body {
   // header
   .navbar {
     text-align: center;
+    position: fixed!important;
+    bottom: 0!important;
+    top: auto!important;
+    width: 100%;
+
+    @include resp-tablet {
+      position: sticky;
+      bottom: auto!important;
+      top: 0!important;
+    }
 
     .logo {
       width: 90px;
@@ -22,6 +32,11 @@ body {
   footer {
     background: #dedede;
     padding: 40px 0;
+    margin-bottom: 55px;
+
+    @include resp-tablet {
+      margin-bottom: 0;
+    }
   }
 }
 
