@@ -39,15 +39,14 @@
                             {{ form_start(form) }}
                             {{ form_row(form.name) }}
                             {{ form_row(form.description) }}
+                            {{ form_row(form.imageFile) }}
                             <button type="submit" class="btn btn-primary">Envoyer</button>
                             {{ form_end(form) }}
 
                             <div class="content-description">
-                                {{ trick.description }}
                             </div>
 
                             <div class="content-infos">
-                                {{ trick.group }}
                             </div>
                         </div>
                     </div>

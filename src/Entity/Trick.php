@@ -5,9 +5,13 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
+ * @Vich\Uploadable
  */
 class Trick
 {
@@ -32,11 +36,6 @@ class Trick
     private $description;
 
     /**
-     * @ORM\Column(type="text")
-     */
-    private $group;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $created;
@@ -45,6 +44,18 @@ class Trick
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updated;
+
+    /**
+     * @Vich\UploadableField(mapping="trick_image", fileNameProperty="imageName")
+     * @var File|null
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
+     */
+    private $imageName;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="trick", orphanRemoval=true)
@@ -184,23 +195,6 @@ class Trick
         return $this;
     }
 
-
-    /**
-     * @return mixed
-     */
-    public function getGroup()
-    {
-        return $this->group;
-    }
-
-    /**
-     * @param mixed $group
-     */
-    public function setGroup($group): void
-    {
-        $this->group = $group;
-    }
-
     /**
      * @return Collection|Comment[]
      */
@@ -230,5 +224,40 @@ class Trick
         }
 
         return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param File $imageFile
+     */
+    public function setImageFile(File $imageFile): void
+    {
+        $this->imageFile = $imageFile;
+        if($this->imageFile instanceof UploadedFile) {
+            $this->updated = new \DateTimeImmutable();
+        }
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    /**
+     * @param string $imageName
+     */
+    public function setImageName(string $imageName): void
+    {
+        $this->imageName = $imageName;
     }
 }
