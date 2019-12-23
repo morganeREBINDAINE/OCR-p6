@@ -201,4 +201,13 @@ class User implements UserInterface
 
         return $valid;
     }
+
+    public function getSubscriptionToken(): Token
+    {
+        foreach ($this->getTokens() as $token) {
+            if ($token->getType() === 'subscription') {
+                return $token;
+            }
+        }
+    }
 }
