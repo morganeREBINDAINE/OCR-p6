@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="single-trick" class="position-relative">
+        <div class="background-img"></div>
+        <div class="trick">
+            <div class="content">
+                <div class="content-container">
+                    <div class="content-details">
+                        <div class="content-img position-relative">
+                            {#                afficher image a la une#}
+                            <div class="content-img-icons">
+                                <a href="#"><i class="fas fa-pen"></i></a>
+                                <a href="#"><i class="fas fa-trash-alt"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="content-content">
+                            <div id="medias">
+                                <div class="row">
+                                    {% for image in trick.images %}
+                                        <div class="col-sm">
+                                            <div class="image">
+                                                <img src="" alt="">id {{ image.id }}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    {% for video in trick.videos %}
+                                        <div class="col-sm">
+                                            <div class="video">
+                                                <img src="" alt="">id {{ video.id }}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary" type="button">Voir les médias</button>
+
+                            <div class="content-description">
+                                {{ trick.description }}
+                            </div>
+
+                            <div class="content-infos">
+                                <div class="content-infos-group">{{ trick.group }}</div>
+                                <div class="content-infos-date-creation text-right text-muted">{{ trick.created | date('d/m/Y') }}</div>
+                                {% if trick.updated %}
+                                    <div class="content-infos-date-updated">{{ trick.updated | date('d/m/Y') }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="comments-area">
+                                <form>
+                                    <h3>Ajouter un commentaire</h3>
+                                    <textarea class="form-control" name="comment" id="comment"></textarea>
+                                    <button class="btn btn-primary" type="submit">Envoyer</button>
+                                </form>
+                                <div class="comments-published">
+                                    {% if trick.comments is not empty %}
+                                        <hr>
+                                        {% for comment in trick.comments %}
+                                            <div class="comment">
+                                                <div class="row">
+                                                    <div class="col-2">
+                                                        <div class="comments-published-avatar">{{ comment.user.avatar }}</div>
+                                                        <span class="comments-published-name">{{ comment.user.username }}</span>
+                                                    </div>
+                                                    <div class="col-10">
+                                                        <p>{{ comment.content }}</p>
+                                                        <span class="text-muted">{{ comment.created | date('d/m/Y') }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                        <button type="button" class="btn btn-primary load-btn">Voir +</button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

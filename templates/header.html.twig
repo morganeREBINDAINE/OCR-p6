@@ -10,10 +10,13 @@
                     <a class="nav-link" href="{{ path('home') }}">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Créer une figure</a>
+                    <a class="nav-link" href="{{ path('create_trick') }}">Créer une figure</a>
                 </li>
                 <li class="nav-item">
                     {% if app.user %}
+                    <a class="nav-link" href="{{ path('create_trick') }}">Créer une figure</a>
+                </li>
+                <li>
                     <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
                     {% else %}
                     <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>

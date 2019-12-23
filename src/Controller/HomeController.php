@@ -42,18 +42,10 @@ class HomeController extends AbstractController
 
     /**
      * @Route("/succes", name="success")
-     */
-    public function success(Session $session) {
-        return $session->getFlashBag()->has('success') ?
-            $this->render('home/message.html.twig'):
-            $this->redirectToRoute('home');
-    }
-
-    /**
      * @Route("/erreur", name="error")
      */
-    public function error(Session $session) {
-        return $session->getFlashBag()->has('error') ?
+    public function message(Session $session) {
+        return ($session->getFlashBag()->has('success') || $session->getFlashBag()->has('error')) ?
             $this->render('home/message.html.twig'):
             $this->redirectToRoute('home');
     }

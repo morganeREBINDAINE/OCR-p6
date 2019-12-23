@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="single-trick" class="position-relative">
+        <div class="background-img"></div>
+        <div class="trick">
+            <div class="content">
+                <div class="content-container">
+                    <div class="content-details">
+                        <div class="content-img position-relative">
+                            <div class="content-img-name">{{ trick.name }}</div>
+                            {#                afficher image a la une#}
+                            <div class="content-img-icons">
+                                <a href="#"><i class="fas fa-pen"></i></a>
+                                <a href="#"><i class="fas fa-trash-alt"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="content-content">
+{#                            <div id="medias">#}
+{#                                <div class="row">#}
+{#                                    {% for image in trick.images %}#}
+{#                                        <div class="col-sm">#}
+{#                                            <div class="image">#}
+{#                                                <img src="" alt="">id {{ image.id }}#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    {% endfor %}#}
+{#                                    {% for video in trick.videos %}#}
+{#                                        <div class="col-sm">#}
+{#                                            <div class="video">#}
+{#                                                <img src="" alt="">id {{ video.id }}#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    {% endfor %}#}
+{#                                </div>#}
+{#                            </div>#}
+
+                            {{ form_start(form) }}
+                            {{ form_row(form.name) }}
+                            {{ form_row(form.description) }}
+                            <button type="submit" class="btn btn-primary">Envoyer</button>
+                            {{ form_end(form) }}
+
+                            <div class="content-description">
+                                {{ trick.description }}
+                            </div>
+
+                            <div class="content-infos">
+                                {{ trick.group }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
