@@ -11,28 +11,10 @@
         {{ encore_entry_link_tags('app') }}
     </head>
     <body>
-    <nav class="navbar sticky-top navbar-expand-lg bg-light navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="#"><img class="logo" id="logo" src="{{ asset('images/logo.png') }}" alt="Snow Tricks"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbar">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Accueil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Créer une figure</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Déconnexion</a>
-                    </li>
-                </ul>
-            </div>
+        {% include 'header.html.twig' %}
+        <div class="body">
+            {% block body %}{% endblock %}
         </div>
-    </nav>
-        {% block body %}{% endblock %}
     <footer>
         <div class="container">
             Copyright © 2019
