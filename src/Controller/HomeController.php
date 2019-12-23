@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\TrickRepository;
+use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -16,7 +17,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(TrickRepository $trickRepository)
+    public function index(TrickRepository $trickRepository, UserRepository $userRepository)
     {
         $tricks = $trickRepository->findPaginatedTricks(10, 0);
         return $this->render('home/index.html.twig', [
