@@ -15,28 +15,28 @@ class User implements UserInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $username;
+    protected $username;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    protected $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    protected $password;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $email;
+    protected $email;
 
     /**
      * @ORM\Column(type="datetime")
@@ -48,19 +48,16 @@ class User implements UserInterface
         $this->created = new \DateTimeImmutable();
     }
 
+    public function setId(int $id): ?int
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUsername(): string
-    {
-        return (string) $this->username;
     }
 
     public function setUsername(string $username): self
@@ -73,10 +70,18 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
+    public function getUsername(): string
+    {
+        return (string) $this->username;
+    }
+
+    /**
+     * @see UserInterface
+     */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
+
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -89,19 +94,19 @@ class User implements UserInterface
         return $this;
     }
 
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
     /**
      * @see UserInterface
      */
     public function getPassword(): string
     {
         return (string) $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
     }
 
     /**
@@ -121,16 +126,16 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
     public function setEmail(string $email): self
     {
         $this->email = $email;
 
         return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
     }
 
     public function getCreated(): ?\DateTimeInterface

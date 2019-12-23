@@ -6,6 +6,11 @@ body {
       text-decoration: none;
     }
   }
+  .body {
+    @include resp-tablet {
+      margin-top: 50px;
+    }
+  }
 
   // header
   .navbar {
@@ -14,6 +19,7 @@ body {
     bottom: 0!important;
     top: auto!important;
     width: 100%;
+    min-height: 50px;
 
     @include resp-tablet {
       position: sticky;
@@ -32,11 +38,6 @@ body {
   footer {
     background: #dedede;
     padding: 40px 0;
-    margin-bottom: 55px;
-
-    @include resp-tablet {
-      margin-bottom: 0;
-    }
   }
 }
 
