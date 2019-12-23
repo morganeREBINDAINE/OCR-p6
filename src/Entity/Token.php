@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="TokenRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\TokenRepository")
  */
 class Token
 {
