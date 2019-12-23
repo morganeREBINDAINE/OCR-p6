@@ -54,7 +54,6 @@ class AuthenticationController extends AbstractController
             $password = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
             $userRepository->save($user);
-
             $this->addFlash('success', 'Vous avez bien été inscrit. Veuillez cliquez sur le lien de validation de compte envoyé sur le mail indiqué.');
             return $this->redirectToRoute('success');
         }

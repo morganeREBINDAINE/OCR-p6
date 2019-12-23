@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -43,12 +45,20 @@ class User implements UserInterface
      */
     private $created;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Token", mappedBy="user", orphanRemoval=true,cascade={"persist", "remove"})
+     */
+    private $tokens;
+
+
     public function __construct()
     {
         $this->created = new \DateTimeImmutable();
+        $this->tokens = new ArrayCollection();
+        $this->addToken(new Token(Token::TYPE_SUBSCRIPTION, $this));
     }
 
-    public function setId(int $id): ?int
+    public function setId(int $id): self
     {
         $this->id = $id;
 
@@ -143,10 +153,52 @@ class User implements UserInterface
         return $this->created;
     }
 
-    public function setCreated(\DateTimeInterface $created): self
+    /**
+     * @return Collection|Token[]
+     */
+    public function getTokens(): Collection
     {
-        $this->created = $created;
+        return $this->tokens;
+    }
+
+    public function setToken(int $tokenType): self
+    {
+        $token = new Token($tokenType, $this);
+        $this->addToken($token);
+        return $this;
+    }
+
+    protected function addToken(Token $token): self
+    {
+        if (!$this->tokens->contains($token)) {
+            $this->tokens[] = $token;
+        }
 
         return $this;
+    }
+
+    public function removeToken(Token $token): self
+    {
+        if ($this->tokens->contains($token)) {
+            $this->tokens->removeElement($token);
+            // set the owning side to null (unless already changed)
+            if ($token->getUser() === $this) {
+                $token->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isValid() {
+        $valid = false;
+
+        foreach ($this->getTokens() as $token) {
+            if ($token->getType() === 'subscription' && $token->getAccessed() !== null) {
+                $valid = true;
+            }
+        }
+
+        return $valid;
     }
 }
