@@ -2,13 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Token;
 use App\Entity\User;
 use App\Form\RegistrationType;
+use App\Repository\TokenRepository;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -54,12 +59,26 @@ class AuthenticationController extends AbstractController
             $password = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
             $userRepository->save($user);
-            $this->addFlash('success', 'Vous avez bien été inscrit. Veuillez cliquez sur le lien de validation de compte envoyé sur le mail indiqué.');
+            $this->addFlash('success', 'Vous avez bien été inscrit. Veuillez cliquez sur le lien de validation de compte envoyé sur le mail que vous avez indiqué.');
             return $this->redirectToRoute('success');
         }
 
         return $this->render('authentication/registration.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/validation/{token}", name="validation")
+     */
+    public function validate(Token $validToken, EntityManager $entityManager)
+    {
+        if ($validToken) {
+            $validToken->setAccessed(new \DateTimeImmutable());
+            $entityManager->flush();
+            $this->addFlash('success', 'Félicitations ! Votre compte est actif, vous pouvez désormais vous connecter et gérer les figures.');
+            return $this->render('home/message.html.twig');
+        }
+        throw new NotFoundHttpException();
     }
 }

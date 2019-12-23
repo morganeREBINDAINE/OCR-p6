@@ -4,12 +4,15 @@ namespace App\Controller;
 
 use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
+use App\Services\Mailer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
@@ -17,8 +20,9 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(TrickRepository $trickRepository, UserRepository $userRepository)
+    public function index(TrickRepository $trickRepository, UserRepository $userRepository, Mailer $mailer)
     {
+        $mailer->sendSubscriptionMail($userRepository->find(1));
         $tricks = $trickRepository->findPaginatedTricks(10, 0);
         return $this->render('home/index.html.twig', [
             'tricks' => $tricks
@@ -36,16 +40,12 @@ class HomeController extends AbstractController
         return $response;
     }
 
-    public function message() {
-        return $this->render('home/message.html.twig');
-    }
-
     /**
      * @Route("/succes", name="success")
      */
     public function success(Session $session) {
         return $session->getFlashBag()->has('success') ?
-            $this->message():
+            $this->render('home/message.html.twig'):
             $this->redirectToRoute('home');
     }
 
@@ -54,7 +54,7 @@ class HomeController extends AbstractController
      */
     public function error(Session $session) {
         return $session->getFlashBag()->has('error') ?
-         $this->message():
-         $this->redirectToRoute('home');
+            $this->render('home/message.html.twig'):
+            $this->redirectToRoute('home');
     }
 }
