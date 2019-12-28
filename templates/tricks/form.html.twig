@@ -7,7 +7,7 @@
             <div class="content-img-name">
                 {{ form_row(form.name) }}
             </div>
-            <div class="content-img-icons">
+            <div class="image-icons">
                 <a href="" id="trick-image-edit"><i class="fas fa-pen"></i></a>
                 <a href="" id="trick-image-delete" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash-alt"></i></a>
                 <a href="" id="trick-image-add"><i class="fas fa-plus"></i></a>
@@ -15,6 +15,22 @@
         </div>
 
         <div class="content-content">
+            <div id="media">
+                {% for image in trick.images %}
+                    <div class="col-sm">
+                        <div class="image">
+                            <div class="image-div" style="background-image: url({{ asset('images/tricks/' ~ image.imageName) | imagine_filter('thumb') }})"></div>
+                            <div class="image-icons">
+                                <form action="{{ path('delete_image', {id: image.id}) }}" method="post">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{csrf_token('delete'~ image.id)}}">
+                                    <a type="submit" id="trick-image-delete"><i class="fas fa-trash-alt"></i></a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
             <div class="content-description">
                 {{ form_label(form.description) }}
                 {{ form_widget(form.description) }}
