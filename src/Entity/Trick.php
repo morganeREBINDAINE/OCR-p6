@@ -5,14 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
- * @Vich\Uploadable
+ * @UniqueEntity("name")
  */
 class Trick
 {
@@ -47,24 +45,18 @@ class Trick
     private $updated;
 
     /**
-     * @Vich\UploadableField(mapping="trick_image", fileNameProperty="imageName")
-     * @Assert\Image(
-     *     mimeTypes="image/jpeg"
-     * )
-     * @var File|null
-     */
-    private $imageFile;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @var string|null
-     */
-    private $imageName;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $images;
+
+    /**
+     * @Assert\All({
+     *   @Assert\Image(
+     *    mimeTypes="image/jpeg"
+     *   )
+     * })
+     */
+    private $imagesFiles;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="trick", orphanRemoval=true)
@@ -231,37 +223,26 @@ class Trick
     }
 
     /**
-     * @return File|null
+     * @return mixed
      */
-    public function getImageFile(): ?File
+    public function getImagesFiles()
     {
-        return $this->imageFile;
+        return $this->imagesFiles;
     }
 
     /**
-     * @param File $imageFile
+     * @param mixed $imagesFiles
+     *
+     * @return Trick
      */
-    public function setImageFile(?File $imageFile): void
+    public function setImagesFiles($imagesFiles): self
     {
-        $this->imageFile = $imageFile;
-        if($this->imageFile instanceof UploadedFile) {
-            $this->updated = new \DateTimeImmutable();
+        foreach ($imagesFiles as $imageFile) {
+            $image = new Image();
+            $image->setImageFile($imageFile);
+            $this->addImage($image);
         }
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getImageName(): ?string
-    {
-        return $this->imageName;
-    }
-
-    /**
-     * @param string $imageName
-     */
-    public function setImageName(?string $imageName): void
-    {
-        $this->imageName = $imageName;
+        $this->imagesFiles = $imagesFiles;
+        return $this;
     }
 }

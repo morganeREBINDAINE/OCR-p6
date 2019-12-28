@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ImageRepository")
@@ -27,7 +28,10 @@ class Image
 
     /**
      * @Vich\UploadableField(mapping="trick_image", fileNameProperty="imageName")
-     * @var File
+     * @Assert\Image(
+     *     mimeTypes="image/jpeg"
+     * )
+     * @var File|null
      */
     private $imageFile;
 
@@ -55,9 +59,9 @@ class Image
     }
 
     /**
-     * @return File
+     * @return File|null
      */
-    public function getImageFile(): File
+    public function getImageFile(): ?File
     {
         return $this->imageFile;
     }
@@ -65,15 +69,16 @@ class Image
     /**
      * @param File $imageFile
      */
-    public function setImageFile(File $imageFile): void
+    public function setImageFile(?File $imageFile): self
     {
         $this->imageFile = $imageFile;
+        return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getImageName(): string
+    public function getImageName(): ?string
     {
         return $this->imageName;
     }
@@ -81,10 +86,8 @@ class Image
     /**
      * @param string $imageName
      */
-    public function setImageName(string $imageName): void
+    public function setImageName(?string $imageName): void
     {
         $this->imageName = $imageName;
     }
-
-
 }

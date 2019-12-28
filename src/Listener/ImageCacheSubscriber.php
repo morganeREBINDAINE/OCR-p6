@@ -2,6 +2,7 @@
 
 namespace App\Listener;
 
+use App\Entity\Image;
 use App\Entity\Trick;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -37,18 +38,19 @@ class ImageCacheSubscriber implements EventSubscriber
     }
 
     public function preRemove(LifecycleEventArgs $args) {
-        $trick = $args->getEntity();
-        if($trick instanceof Trick) {
-            $this->cacheManager->remove($this->uploaderHelper->asset($trick, 'imageFile'));
+        $image = $args->getEntity();
+        // @todo update
+        if($image instanceof Image) {
+            $this->cacheManager->remove($this->uploaderHelper->asset($image, 'imageFile'));
         }
     }
 
     public function preUpdate(PreUpdateEventArgs $args) {
-        $trick = $args->getEntity();
-        if($trick instanceof Trick &&
-            ($trick->getImageFile() instanceof UploadedFile || $trick->getImageFile() === null)
+        $image = $args->getEntity();
+        if($image instanceof Image &&
+            ($image->getImageFile() instanceof UploadedFile || $image->getImageFile() === null)
         ) {
-            $this->cacheManager->remove($this->uploaderHelper->asset($trick, 'imageFile'));
+            $this->cacheManager->remove($this->uploaderHelper->asset($image, 'imageFile'));
         }
     }
 }
