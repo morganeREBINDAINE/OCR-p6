@@ -2,12 +2,16 @@
 
 {% block children %}
     <div class="trick-page">
-        <div class="content-img position-relative" style="background-image:url({% if trick.imageName is not empty %}{{ asset('images/tricks/' ~ trick.imageName) }}{% else %}{{ asset('images/placehold.jpg') }}{% endif %})">
+        <div class="content-img position-relative"
+             style="background-image:url(
+             {% if trick.imageName is not empty %}{{ asset('images/tricks/' ~ trick.imageName) }}
+             {% else %}{{ asset('images/placehold.jpg') }}{% endif %}
+         )">
             <div class="content-img-name">
                 <h2>{{ trick.name }}</h2>
             </div>
             <div class="content-img-icons">
-                <a href="#"><i class="fas fa-pen"></i></a>
+                <a href="{{path('edit_trick', {id: trick.id})}}"><i class="fas fa-pen"></i></a>
                 <a href="#" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash-alt"></i></a>
             </div>
             <div class="modal fade" id="deleteModal">

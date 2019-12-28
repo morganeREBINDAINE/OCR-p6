@@ -33,10 +33,31 @@ class TrickController extends AbstractController
         $form = $this->createForm(TrickType::class, $trick);
 
         $form->handleRequest($request);
-        dump($form);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $trickRepository->save($trick);
-//            return $this->redirectToRoute('success');     redirect to new trick
+            $this->addFlash('success', 'Votre figure a bien été créée. La voici !');
+            return $this->redirectToRoute('display_trick', ['id' => $trick->getId()]);
+        }
+
+        return $this->render('tricks/form.html.twig', [
+            'trick' => $trick,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/modifier-figure-{id}", name="edit_trick")
+     */
+    public function edit(Trick $trick, Request $request, TrickRepository $trickRepository)
+    {
+        $form = $this->createForm(TrickType::class, $trick);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $trickRepository->save($trick);
+            $this->addFlash('success', 'Votre figure a bien été modifiée.');
+            return $this->redirectToRoute('display_trick', ['id' => $trick->getId()]);
         }
 
         return $this->render('tricks/form.html.twig', [

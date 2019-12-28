@@ -113,4 +113,16 @@
       }
     }
   }
+
+  #flash {
+    .alert {
+      width: 100%;
+      margin: 0;
+    }
+
+    .close {
+      margin: 0;
+      padding: 0;
+    }
+  }
 }

@@ -1,26 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5d98ff12-df94-4e34-bb59-90a02cb44136" name="Default Changelist" comment="Mail logins">
-      <change afterPath="$PROJECT_DIR$/src/Form/TrickType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/tricks/form.html.twig" afterDir="false" />
+    <list default="true" id="5d98ff12-df94-4e34-bb59-90a02cb44136" name="Default Changelist" comment="Flash message on submit, edit path">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/twig.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/twig.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/header.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/header.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/TrickController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TrickController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/tricks/single.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tricks/single.html.twig" afterDir="false" />
     </list>
     <list id="60e084bd-0d64-4cce-9997-4f56944992d2" name="Mail logins" comment="">
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
     </list>
-    <list id="c7f5d064-3c95-40c9-b1e8-1be92c50d843" name="trick-single" comment="">
-      <change afterPath="$PROJECT_DIR$/public/images/loader.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/TrickController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/tricks/single.html.twig" afterDir="false" />
-    </list>
+    <list id="c7f5d064-3c95-40c9-b1e8-1be92c50d843" name="trick-single" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -197,9 +186,13 @@
       <path value="$PROJECT_DIR$/vendor/symfony/webpack-encore-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/dependency-injection" />
       <path value="$PROJECT_DIR$/vendor/symfony/templating" />
-      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
       <path value="$PROJECT_DIR$/vendor/symfony/google-mailer" />
       <path value="$PROJECT_DIR$/vendor/friendsofsymfony/ckeditor-bundle" />
+      <path value="$PROJECT_DIR$/vendor/jms/metadata" />
+      <path value="$PROJECT_DIR$/vendor/vich/uploader-bundle" />
+      <path value="$PROJECT_DIR$/vendor/behat/transliterator" />
+      <path value="$PROJECT_DIR$/vendor/imagine/imagine" />
+      <path value="$PROJECT_DIR$/vendor/liip/imagine-bundle" />
     </include_path>
   </component>
   <component name="ProjectId" id="1UpWOO8oaKbYpg4CmGW2tPwUVhI" />
@@ -314,7 +307,28 @@
       <option name="project" value="LOCAL" />
       <updated>1577105621050</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Trick form - upload images">
+      <created>1577119917358</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1577119917358</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Download &amp; display thumbnail">
+      <created>1577522163576</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1577522163588</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Flash message on submit, edit path">
+      <created>1577526210420</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1577526210441</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -342,6 +356,9 @@
     <MESSAGE value="Subscription token" />
     <MESSAGE value="Mail logins" />
     <MESSAGE value="Mail to confirm account" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mail to confirm account" />
+    <MESSAGE value="Trick form - upload images" />
+    <MESSAGE value="Download &amp; display thumbnail" />
+    <MESSAGE value="Flash message on submit, edit path" />
+    <option name="LAST_COMMIT_MESSAGE" value="Flash message on submit, edit path" />
   </component>
 </project>

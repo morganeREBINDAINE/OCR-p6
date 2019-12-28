@@ -2,7 +2,10 @@
     <div class="col-sm col-trick">
         <div class="trick-card">
             <a href="{{ path('display_trick', {id: trick.id}) }}">
-                <div class="trick-card-img" style="background-image:url({% if trick.imageName is not empty %}{{ asset('images/tricks/' ~ trick.imageName) }}{% else %}{{ asset('images/placehold.jpg') }}{% endif %})"></div>
+                <div class="trick-card-img" style="background-image:url(
+                {% if trick.imageName is not empty %}{{ asset('images/tricks/' ~ trick.imageName) | imagine_filter('thumb') }}
+                {% else %}{{ asset('images/placehold.jpg') }}{% endif %}
+            )"></div>
 
             </a>
             <div class="row align-items-center trick-card-bottom">
