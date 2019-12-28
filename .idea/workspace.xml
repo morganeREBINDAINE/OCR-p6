@@ -2,12 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5d98ff12-df94-4e34-bb59-90a02cb44136" name="Default Changelist" comment="Flash message on submit, edit path">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/AuthenticationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AuthenticationController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/TrickController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TrickController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/tricks/single.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tricks/single.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home/list-tricks.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home/list-tricks.html.twig" afterDir="false" />
     </list>
-    <list id="60e084bd-0d64-4cce-9997-4f56944992d2" name="Mail logins" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+    <list id="2d94564c-cf12-4f2f-913d-1efe920ae37b" name="cccc" comment="" />
+    <list id="60e084bd-0d64-4cce-9997-4f56944992d2" name="Mail logins" comment="" />
+    <list id="208ae746-e4d4-4bec-918f-704f442309d6" name="SHELF 28/12" comment="">
+      <change afterPath="$PROJECT_DIR$/config/packages/liip_imagine.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/routes/liip_imagine.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Listener/ImageCacheSubscriber.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/parts/delete-modal.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/scss/parts/_homepage.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/parts/_homepage.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Mailer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Mailer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/tricks/single.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tricks/single.html.twig" afterDir="false" />
     </list>
     <list id="c7f5d064-3c95-40c9-b1e8-1be92c50d843" name="trick-single" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -52,6 +63,9 @@
     </expand>
     <select />
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="site" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -62,7 +76,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="718c74f52bad3263ac3d6f06ca78440e35101602" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -236,6 +250,9 @@
       </serviceView>
     </option>
   </component>
+  <component name="ShelveChangesManager">
+    <option name="remove_strategy" value="true" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -328,7 +345,14 @@
       <option name="project" value="LOCAL" />
       <updated>1577526210441</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="SHELF 28/12">
+      <created>1577533074522</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1577533074528</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -359,6 +383,7 @@
     <MESSAGE value="Trick form - upload images" />
     <MESSAGE value="Download &amp; display thumbnail" />
     <MESSAGE value="Flash message on submit, edit path" />
-    <option name="LAST_COMMIT_MESSAGE" value="Flash message on submit, edit path" />
+    <MESSAGE value="SHELF 28/12" />
+    <option name="LAST_COMMIT_MESSAGE" value="SHELF 28/12" />
   </component>
 </project>

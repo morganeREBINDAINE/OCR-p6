@@ -5,10 +5,9 @@ namespace App\Controller;
 use App\Entity\Token;
 use App\Entity\User;
 use App\Form\RegistrationType;
-use App\Repository\TokenRepository;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use App\Services\Mailer;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +23,7 @@ class AuthenticationController extends AbstractController
      * @Route("/connexion", name="app_login")
      * @Security("is_granted('IS_AUTHENTICATED_ANONYMOUSLY')")
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, UserRepository $repository): Response
     {
          if ($this->getUser()) {
              return $this->redirectToRoute('home');
@@ -49,7 +48,7 @@ class AuthenticationController extends AbstractController
     /**
      * @Route("/inscription", name="registration")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $encoder, UserRepository $userRepository)
+    public function register(Request $request, UserPasswordEncoderInterface $encoder, UserRepository $userRepository, Mailer $mailer)
     {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
@@ -59,6 +58,7 @@ class AuthenticationController extends AbstractController
             $password = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
             $userRepository->save($user);
+            $mailer->sendSubscriptionMail($user);
             $this->addFlash('success', 'Vous avez bien été inscrit. Veuillez cliquez sur le lien de validation de compte envoyé sur le mail que vous avez indiqué.');
             return $this->redirectToRoute('success');
         }
@@ -71,14 +71,16 @@ class AuthenticationController extends AbstractController
     /**
      * @Route("/validation/{token}", name="validation")
      */
-    public function validate(Token $validToken, EntityManager $entityManager)
+    public function validate(Token $validToken, EntityManagerInterface $entityManager)
     {
-        if ($validToken) {
+        if ($validToken && $validToken->getType() === 'subscription' && $validToken->getAccessed() === null) {
             $validToken->setAccessed(new \DateTimeImmutable());
             $entityManager->flush();
             $this->addFlash('success', 'Félicitations ! Votre compte est actif, vous pouvez désormais vous connecter et gérer les figures.');
             return $this->render('home/message.html.twig');
         }
+
+        // @todo invalid token message
         throw new NotFoundHttpException();
     }
 }

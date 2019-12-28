@@ -1,0 +1,13 @@
+<div class="modal fade" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                Êtes-vous bien sûr de vouloir supprimer cette figure&nbsp;?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Non...</button>
+                <a href="{% if trick is defined %}{{ path('delete_trick', {id: trick.id}) }}{% endif %}" class="btn btn-primary">Oui&nbsp;!</a>
+            </div>
+        </div>
+    </div>
+</div>

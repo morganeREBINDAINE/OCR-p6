@@ -12,21 +12,9 @@
             </div>
             <div class="content-img-icons">
                 <a href="{{path('edit_trick', {id: trick.id})}}"><i class="fas fa-pen"></i></a>
-                <a href="#" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash-alt"></i></a>
+                <a href="" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash-alt"></i></a>
             </div>
-            <div class="modal fade" id="deleteModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            Êtes-vous bien sûr de vouloir supprimer cette figure&nbsp;?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Non...</button>
-        {#                                            <a href="{{ path('delete_trick', {id: trick.id}) }}" class="btn btn-primary">Oui&nbsp;!</a>#}
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% include('parts/delete-modal.html.twig') %}
         </div>
         <div class="content-content">
                                     <div id="medias">
