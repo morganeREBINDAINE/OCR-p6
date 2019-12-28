@@ -1,4 +1,4 @@
-#single-trick {
+.single-trick {
   @include resp-tablet {
     min-height: 1000px;
   }
@@ -52,8 +52,26 @@
 
     &-img {
       height: 300px;
-      background: yellow;
       width: 100%;
+      background-position: center;
+      background-size: cover;
+      background-image: url(/images/empty.jpg);
+
+      &-name {
+        position: relative;
+        width: 100%;
+        text-align: center;
+        font-size: 35px;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 7px;
+        text-shadow: 2px 2px 7px black;
+        background: #00000047;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
       &-icons {
         position: absolute;

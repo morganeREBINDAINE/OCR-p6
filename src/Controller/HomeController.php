@@ -20,9 +20,8 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(TrickRepository $trickRepository, UserRepository $userRepository, Mailer $mailer)
+    public function index(TrickRepository $trickRepository)
     {
-        $mailer->sendSubscriptionMail($userRepository->find(1));
         $tricks = $trickRepository->findPaginatedTricks(10, 0);
         return $this->render('home/index.html.twig', [
             'tricks' => $tricks

@@ -29,11 +29,13 @@
       border-radius: 5px;
       overflow: hidden;
       box-shadow: 0 0 15px black;
+      max-width: 210px;
 
       &-img {
         width: 100%;
         height: 150px;
-        background-image: url("http://place-hold.it/400");
+        background-size: cover;
+        background-position: center;
 
         @include resp-tablet {
           height: 110px;

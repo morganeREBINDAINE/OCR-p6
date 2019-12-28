@@ -1,57 +1,32 @@
-{% extends 'base.html.twig' %}
+{% extends 'boxshadow.html.twig' %}
 
-{% block body %}
-    <div id="single-trick" class="position-relative">
-        <div class="background-img"></div>
-        <div class="trick">
-            <div class="content">
-                <div class="content-container">
-                    <div class="content-details">
-                        <div class="content-img position-relative">
-                            <div class="content-img-name">{{ trick.name }}</div>
-                            {#                afficher image a la une#}
-                            <div class="content-img-icons">
-                                <a href="#"><i class="fas fa-pen"></i></a>
-                                <a href="#"><i class="fas fa-trash-alt"></i></a>
-                            </div>
-                        </div>
-
-                        <div class="content-content">
-{#                            <div id="medias">#}
-{#                                <div class="row">#}
-{#                                    {% for image in trick.images %}#}
-{#                                        <div class="col-sm">#}
-{#                                            <div class="image">#}
-{#                                                <img src="" alt="">id {{ image.id }}#}
-{#                                            </div>#}
-{#                                        </div>#}
-{#                                    {% endfor %}#}
-{#                                    {% for video in trick.videos %}#}
-{#                                        <div class="col-sm">#}
-{#                                            <div class="video">#}
-{#                                                <img src="" alt="">id {{ video.id }}#}
-{#                                            </div>#}
-{#                                        </div>#}
-{#                                    {% endfor %}#}
-{#                                </div>#}
-{#                            </div>#}
-
-                            {{ form_start(form) }}
-                            {{ form_row(form.name) }}
-                            {{ form_row(form.description) }}
-                            {{ form_row(form.imageFile) }}
-                            <button type="submit" class="btn btn-primary">Envoyer</button>
-                            {{ form_end(form) }}
-
-                            <div class="content-description">
-                            </div>
-
-                            <div class="content-infos">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+{% block children %}
+    <div class="trick-form">
+        {{ form_start(form) }}
+        <div class="content-img position-relative" style="background-image:url(/images/placehold.jpg)">
+        <div class="content-img-name">
+            {{ form_row(form.name) }}
         </div>
+        <div class="content-img-icons">
+            <a href="#" id="trick-image-add"><i class="fas fa-plus"></i></a>
+{#            <a href="#"><i class="fas fa-pen"></i></a>#}
+{#            <a href="#" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash-alt"></i></a>#}
+        </div>
+        </div>
+    </div>
+
+    <div class="content-content">
+        <div class="content-description">
+            {{ form_label(form.description) }}
+            {{ form_widget(form.description) }}
+        </div>
+
+        <div class="content-infos">
+{#            choose group             #}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Envoyer</button>
+
+        {{ form_end(form) }}
     </div>
 {% endblock %}

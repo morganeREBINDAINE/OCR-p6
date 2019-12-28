@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="single-trick position-relative">
+        <div class="background-img"></div>
+        <div class="trick">
+            <div class="content">
+                <div class="content-container">
+                    <div class="content-details">
+                        {% block children %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

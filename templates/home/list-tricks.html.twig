@@ -1,10 +1,13 @@
 {% for trick in tricks %}
     <div class="col-sm col-trick">
         <div class="trick-card">
-            <div class="trick-card-img"></div>
+            <a href="{{ path('display_trick', {id: trick.id}) }}">
+                <div class="trick-card-img" style="background-image:url({% if trick.imageName is not empty %}{{ asset('images/tricks/' ~ trick.imageName) }}{% else %}{{ asset('images/placehold.jpg') }}{% endif %})"></div>
+
+            </a>
             <div class="row align-items-center trick-card-bottom">
                 <div class="col-8">
-                    <a href="#">{{ trick.name }}</a>
+                    <a href="{{ path('display_trick', {id: trick.id}) }}">{{ trick.name }}</a>
                 </div>
                 <div class="col-4">
                     <a href="#"><i class="fas fa-pen"></i></a>

@@ -34,7 +34,6 @@ class Mailer
             $email = (new Email())
                 ->from('contact@snow-tricks.com')
                 ->to('mrebindaine@yopmail.com')
-    //            ->to($user->getEmail())
                 ->subject('Merci de valider votre compte')
                 ->text('Validation du compte')
                 ->html('<p>Cliquez ici pour valider le compte: <a href="'.$url.'">'.$url.'</a> </p>');
