@@ -3,13 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Trick;
-use App\Form\RegistrationType;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TrickController extends AbstractController
@@ -48,8 +47,17 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/modifier-figure-{id}", name="edit_trick")
+     * @param Trick           $trick
+     * @param Request         $request
+     * @param TrickRepository $trickRepository
+     *
+     * @return Response
      */
-    public function edit(Trick $trick, Request $request, TrickRepository $trickRepository)
+    public function edit(
+        Trick $trick,
+        Request $request,
+        TrickRepository $trickRepository
+    )
     {
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);

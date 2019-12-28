@@ -1,0 +1,20 @@
+.trick-form {
+  .content-img-icons {
+    & #trick-image-edit, & #trick-image-delete {
+      display: none;
+    }
+    &.has-image {
+      & #trick-image-edit, & #trick-image-delete {
+        display: initial;
+      }
+      & #trick-image-add {
+        display: none;
+      }
+    }
+  }
+
+  .hidden-field {
+    height: 0;
+    overflow: hidden;
+  }
+}
