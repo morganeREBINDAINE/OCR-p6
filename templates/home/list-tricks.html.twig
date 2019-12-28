@@ -3,7 +3,7 @@
         <div class="trick-card">
             <a href="{{ path('display_trick', {id: trick.id}) }}">
                 <div class="trick-card-img" style="background-image:url(
-                {% if trick.imageName is not empty %}{{ asset('images/tricks/' ~ trick.imageName) | imagine_filter('thumb') }}
+                {% if trick.imageName is defined and trick.imageName is not empty %}{{ asset('images/tricks/' ~ trick.imageName) | imagine_filter('thumb') }}
                 {% else %}{{ asset('images/placehold.jpg') | imagine_filter('thumb') }}{% endif %}
             )"></div>
             </a>
@@ -15,11 +15,11 @@
                 <div class="col-4">
                     <a href="{{path('edit_trick', {id: trick.id})}}"><i class="fas fa-pen"></i></a>
 {#                    @todo traitement jquery pour ouvrir la modale#}
-                    <a href="#"><i class="fas fa-trash-alt"></i></a>
+                    <a href="" data-toggle="modal" data-target="#deleteModal{{ trick.id }}"><i class="fas fa-trash-alt"></i></a>
                 </div>
                 {% endif %}
             </div>
         </div>
     </div>
-{% endfor %}
 {% include 'parts/delete-modal.html.twig' %}
+{% endfor %}

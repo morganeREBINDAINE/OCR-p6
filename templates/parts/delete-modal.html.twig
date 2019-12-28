@@ -1,4 +1,4 @@
-<div class="modal fade" id="deleteModal">
+<div class="modal fade deleteModal" id="deleteModal{{ trick.id }}">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
@@ -6,7 +6,11 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Non...</button>
-                <a href="{% if trick is defined %}{{ path('delete_trick', {id: trick.id}) }}{% endif %}" class="btn btn-primary">Oui&nbsp;!</a>
+                <form action="{{ path('delete_trick', {id: trick.id}) }}" method="post">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{csrf_token('delete'~ trick.id)}}">
+                    <button type="submit" class="btn btn-success" id="trick-image-delete">Oui !</button>
+                </form>
             </div>
         </div>
     </div>

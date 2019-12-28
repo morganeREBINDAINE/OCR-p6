@@ -13,19 +13,7 @@
       }
   }
 
-  .image-icons {
-    position: absolute;
-    right: 0;
-    top: 0;
-    font-size: 23px;
-    background: $grey;
-    padding: 10px;
-    border-bottom-left-radius: 10px;
 
-    .fas.fa-pen {
-      margin-right: 12px;
-    }
-  }
 
   .trick {
     position: relative;
@@ -145,5 +133,20 @@
       margin: 0;
       padding: 0;
     }
+  }
+}
+
+.image-icons {
+  display: flex;
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 23px;
+  background: $grey;
+  padding: 10px;
+  border-bottom-left-radius: 10px;
+
+  .fas.fa-pen {
+    margin-right: 12px;
   }
 }

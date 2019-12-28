@@ -12,7 +12,7 @@
             </div>
             <div class="image-icons">
                 <a href="{{path('edit_trick', {id: trick.id})}}"><i class="fas fa-pen"></i></a>
-                <a href="" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash-alt"></i></a>
+                <a href="" data-toggle="modal" data-target="#deleteModal{{ trick.id }}"><i class="fas fa-trash-alt"></i></a>
             </div>
             {% include('parts/delete-modal.html.twig') %}
         </div>
@@ -23,10 +23,6 @@
                         <div class="col-sm">
                             <div class="image">
                                 <div class="image-div" style="background-image: url({{ asset('images/tricks/' ~ image.imageName) | imagine_filter('thumb') }})"></div>
-                                <div class="image-icons">
-                                    <a href="" id="trick-image-edit"><i class="fas fa-pen"></i></a>
-                                    <a href="" id="trick-image-delete" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash-alt"></i></a>
-                                </div>
                             </div>
                         </div>
                     {% endfor %}
