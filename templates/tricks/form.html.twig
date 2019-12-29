@@ -22,8 +22,10 @@
                 {% include 'tricks/list-images.html.twig' with {images: trick.images} %}
             </div>
             <img class="loader" src="{{ asset('images/loader.gif') }}" style="display: none">
-            <button class="btn btn-success add_imgs_btn">Ajouter des images</button>
-            <button class="btn btn-success add_videos_btn" >Ajouter une vidéo</button>
+            <div class="content-content-btn">
+                <a class="btn btn-success add_imgs_btn">Ajouter des images</a>
+                <a class="btn btn-success add_videos_btn" >Ajouter une vidéo</a>
+            </div>
 
             <div class="content-description">
                 {{ form_label(form.description) }}
