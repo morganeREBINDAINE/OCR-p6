@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Trick;
 use App\Form\TrickType;
+use App\Repository\ImageRepository;
 use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -57,9 +58,11 @@ class TrickController extends AbstractController
     public function edit(
         Trick $trick,
         Request $request,
-        TrickRepository $trickRepository
+        TrickRepository $trickRepository,
+        ImageRepository $imageRepository
     )
     {
+//        $image = $imageRepository->find(6);
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 

@@ -68,6 +68,11 @@ class Trick
      */
     private $comments;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist", "remove"})
+     */
+    private $mainImage;
+
     public function __construct()
     {
         $this->created = new \DateTimeImmutable();
@@ -243,6 +248,18 @@ class Trick
             $this->addImage($image);
         }
         $this->imagesFiles = $imagesFiles;
+        return $this;
+    }
+
+    public function getMainImage(): ?Image
+    {
+        return $this->mainImage;
+    }
+
+    public function setMainImage(?Image $mainImage): self
+    {
+        $this->mainImage = $mainImage;
+
         return $this;
     }
 }
