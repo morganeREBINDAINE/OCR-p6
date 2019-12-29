@@ -1,15 +1,24 @@
 .trick-form {
-  .content-img-icons {
-    & #trick-image-edit, & #trick-image-delete {
-      display: none;
-    }
-    &.has-image {
-      & #trick-image-edit, & #trick-image-delete {
-        display: initial;
-      }
-      & #trick-image-add {
+  .content-img {
+    .image-icons {
+      & .trick-image-edit, & .trick-image-delete {
         display: none;
       }
+      &.has-image {
+        & .trick-image-edit, & .trick-image-delete {
+          display: initial;
+        }
+        & .trick-image-add {
+          display: none;
+        }
+      }
+    }
+  }
+  #media {
+    .trick-image-delete {
+      background: none;
+      border: none;
+      padding: 0;
     }
   }
 
