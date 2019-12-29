@@ -60,6 +60,7 @@
       background-size: cover;
       background-image: url(/images/empty.jpg);
 
+
       &-name {
         position: relative;
         width: 100%;
@@ -83,7 +84,7 @@
 
       .image {
         position: relative;
-        width: 200px;
+        width: 250px;
 
         &-icons {
           font-size: 17px;
@@ -95,8 +96,8 @@
 
         &-div {
           background-size: cover;
-          height: 120px;
-          width: 200px;
+          height: 180px;
+          width: 250px;
           background-position: center;
         }
       }

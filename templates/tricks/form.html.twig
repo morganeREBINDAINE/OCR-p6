@@ -3,10 +3,18 @@
 {% block children %}
     <div class="trick-form">
         {{ form_start(form) }}
-        <div class="content-img position-relative" style="background-image:url(/images/placehold.jpg)">
+        <div class="content-img position-relative" style="background-image:url(
+        {% if trick.mainImage is defined and trick.mainImage is not empty %}{{ asset('images/tricks/' ~ trick.mainImage.imageName) }}
+        {% else %}{{ asset('images/placehold.jpg') }}{% endif %}
+                )">
             <div class="content-img-name">
                 {{ form_row(form.name) }}
             </div>
+{#            <div class="image-icons">#}
+{#                <a href="" class="trick-image-edit"><i class="fas fa-pen"></i></a>#}
+{#                <a href="" class="trick-image-delete" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash-alt"></i></a>#}
+{#                <a href="" class="trick-image-add"><i class="fas fa-plus"></i></a>#}
+{#            </div>#}
         </div>
 
         <div class="content-content">
@@ -14,8 +22,8 @@
                 {% include 'tricks/list-images.html.twig' with {images: trick.images} %}
             </div>
             <img class="loader" src="{{ asset('images/loader.gif') }}" style="display: none">
-            <button class="btn btn-success" id="add_imgs_btn">Ajouter des images</button>
-            <button class="btn btn-success" id="add_videos_btn">Ajouter des vidéos</button>
+            <button class="btn btn-success add_imgs_btn">Ajouter des images</button>
+            <button class="btn btn-success add_videos_btn" >Ajouter une vidéo</button>
 
             <div class="content-description">
                 {{ form_label(form.description) }}
@@ -25,6 +33,8 @@
             <div class="content-infos">
                 {#            choose group             #}
             </div>
+
+            
 
             <div class="hidden-field">
                 <input id="trick_imagesFiles" type="file" multiple>

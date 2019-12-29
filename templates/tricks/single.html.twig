@@ -4,7 +4,7 @@
     <div class="trick-page">
         <div class="content-img position-relative"
              style="background-image:url(
-             {% if trick.imageName is defined and trick.imageName is not empty %}{{ asset('images/tricks/' ~ trick.imageName) }}
+             {% if trick.mainImage is defined and trick.mainImage is not empty %}{{ asset('images/tricks/' ~ trick.mainImage.imageName) }}
              {% else %}{{ asset('images/placehold.jpg') }}{% endif %}
          )">
             <div class="content-img-name">
