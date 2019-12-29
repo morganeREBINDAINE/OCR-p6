@@ -20,10 +20,6 @@ class TrickType extends AbstractType
             ->add('description', CKEditorType::class, [
                 'config' => array('toolbar' => 'basic'),
             ])
-            ->add('imagesFiles', FileType::class, [
-                'required' => false,
-                'multiple' => true
-            ])
         ;
     }
 
