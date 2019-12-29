@@ -111,7 +111,7 @@ $('.mainimg-btn').on('click', (evt) => {
 $('.add_videos_btn').on('click', (evt)=>{
     evt.preventDefault()
     $('.add_videos_btn').hide()
-    $('.content-content-btn').append($('<label>Collez une balise iframe</label>')).append($('<input id="input-video" type="text" placeholder="<iframe src=...></iframe>">'))
+    $('.content-content-btn').append($('<div id="div-input-video"><label>Collez une balise iframe</label><input id="input-video" type="text" placeholder="<iframe src=...></iframe>"></div>'))
 
     const addVideo = (evt) => {
         const element = evt.target.value
@@ -123,7 +123,7 @@ $('.add_videos_btn').on('click', (evt)=>{
             formData.append('trick', trickID)
 
             $.ajax({
-                url: '/add-video',
+                url: '/create_video',
                 type: "POST",
                 dataType: "json",
                 processData: false,
@@ -131,10 +131,19 @@ $('.add_videos_btn').on('click', (evt)=>{
                 data: formData,
                 async: true,
                 success: (data) => {
-                    console.log(data)
+                    console.log('success',data)
+                    $('#div-input-video').remove()
+                    $('#media').append(data.view)
+                    $('.add_videos_btn').show()
                 },
-                error: (e) => {console.log(e)}
+                error: (e) => {
+                    console.log('error',e)
+                    $('#div-input-video').remove()
+                    $('.add_videos_btn').show()
+                }
             })
+
+            $('#div-input-video').html('').append($('<img src="images/loader.gif" />'))
         }
         // @todo add error msg
     }
@@ -147,6 +156,9 @@ $('.add_videos_btn').on('click', (evt)=>{
     })
 })
 
+// @todo delete video
+
+// disable submit on enter
 $(window).keydown(function(event){
     if(event.keyCode === 13) {
         event.preventDefault();
