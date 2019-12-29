@@ -15,6 +15,8 @@
             </div>
             <img class="loader" src="{{ asset('images/loader.gif') }}" style="display: none">
             <button class="btn btn-success" id="add_imgs_btn">Ajouter des images</button>
+            <button class="btn btn-success" id="add_videos_btn">Ajouter des vidéos</button>
+
             <div class="content-description">
                 {{ form_label(form.description) }}
                 {{ form_widget(form.description) }}
@@ -25,7 +27,7 @@
             </div>
 
             <div class="hidden-field">
-            {{ form_row(form.imagesFiles) }}
+                <input id="trick_imagesFiles" type="file" multiple>
             </div>
 
             <button type="submit" class="btn btn-primary">Envoyer</button>

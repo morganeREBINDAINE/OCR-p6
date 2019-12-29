@@ -19,14 +19,15 @@ class ImageController extends AbstractController
      */
     public function delete(Image $image, Request $request)
     {
-        $trick = $image->getTrick();
-        if ($this->isCsrfTokenValid('delete'.$image->getId(), $request->request->get('_token'))) {
+        dump($request->request->all(), $image, $this->isCsrfTokenValid('delete'.$image->getId(), $request->request->get('token')));
+
+        if ($this->isCsrfTokenValid('delete'.$image->getId(), $request->request->get('token'))) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($image);
             $em->flush();
         }
 
-        return $this->redirectToRoute('edit_trick', ['id' => $trick->getId()]);
+        return new JsonResponse(['success' => 'success']);
     }
 
     /**
