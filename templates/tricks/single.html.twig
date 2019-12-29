@@ -19,20 +19,8 @@
         <div class="content-content">
             <div id="medias">
                 <div class="row">
-                    {% for image in trick.images %}
-                        <div class="col-sm">
-                            <div class="image">
-                                <div class="image-div" style="background-image: url({{ asset('images/tricks/' ~ image.imageName) | imagine_filter('thumb') }})"></div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                    {% for video in trick.videos %}
-                        <div class="col-sm">
-                            <div class="video">
-                                <img src="" alt="">id {{ video.id }}
-                            </div>
-                        </div>
-                    {% endfor %}
+                    {% include 'tricks/list-images.html.twig' with {images: trick.images} %}
+                    {% include 'tricks/list-videos.html.twig' with {videos: trick.videos} %}
                 </div>
             </div>
 

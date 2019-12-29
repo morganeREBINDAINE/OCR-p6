@@ -62,6 +62,7 @@ class TrickController extends AbstractController
         ImageRepository $imageRepository
     )
     {
+        dump($trick->getVideos()->first());
 //        $image = $imageRepository->find(6);
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);

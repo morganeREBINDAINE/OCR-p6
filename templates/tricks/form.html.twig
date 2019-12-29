@@ -20,6 +20,7 @@
         <div class="content-content">
             <div id="media">
                 {% include 'tricks/list-images.html.twig' with {images: trick.images} %}
+                {% include 'tricks/list-videos.html.twig' with {videos: trick.videos} %}
             </div>
             <img class="loader" src="{{ asset('images/loader.gif') }}" style="display: none">
             <div class="content-content-btn">

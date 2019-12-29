@@ -82,9 +82,15 @@
       text-align: center;
       padding: 20px;
 
-      .image {
+      .image, .video {
         position: relative;
         width: 250px;
+        height: 150px;
+
+        iframe {
+          width: 100%;
+          height: auto;
+        }
 
         &-icons {
           font-size: 17px;
