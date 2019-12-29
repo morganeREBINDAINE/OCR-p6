@@ -1,0 +1,11 @@
+{% for image in images %}
+    <div class="col-sm">
+        <div class="image">
+            <div class="image-div" style="background-image: url({{ asset('images/tricks/' ~ image.imageName) | imagine_filter('thumb') }})"></div>
+            <div class="image-icons">
+                <input type="hidden" name="_token" value="{{csrf_token('delete'~ image.id)}}">
+                <button type="submit" class="trick-image-delete"><i class="fas fa-trash-alt"></i></button>
+            </div>
+        </div>
+    </div>
+{% endfor %}

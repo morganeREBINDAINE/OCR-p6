@@ -9,3 +9,4 @@
 require('../scss/app.scss');
 require('./homepage.js');
 require('./single.js');
+require('./form.js');
