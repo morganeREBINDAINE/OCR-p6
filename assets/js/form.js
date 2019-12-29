@@ -29,7 +29,7 @@ $('#trick_imagesFiles').on('change', (evt) => {
             $('.loader').hide()
             $('#media').append(data.view)
             if (data.changed !== false) {
-                $('.content-img').css('background-image', 'url('+data.changed+')')
+                $('.content-img').css('background-image', 'url(/images/tricks/'+data.changed+')')
             }
         },
         error: (e) => {
@@ -110,5 +110,45 @@ $('.mainimg-btn').on('click', (evt) => {
 // add video
 $('.add_videos_btn').on('click', (evt)=>{
     evt.preventDefault()
-    $('#add_videos_btn')
+    $('.add_videos_btn').hide()
+    $('.content-content-btn').append($('<label>Collez une balise iframe</label>')).append($('<input id="input-video" type="text" placeholder="<iframe src=...></iframe>">'))
+
+    const addVideo = (evt) => {
+        const element = evt.target.value
+        const regex = new RegExp('^<iframe.+>$')
+
+        if (regex.test(element)) {
+            var formData = new FormData()
+            formData.append('iframe', element)
+            formData.append('trick', trickID)
+
+            $.ajax({
+                url: '/add-video',
+                type: "POST",
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                data: formData,
+                async: true,
+                success: (data) => {
+                    console.log(data)
+                },
+                error: (e) => {console.log(e)}
+            })
+        }
+        // @todo add error msg
+    }
+
+    $('#input-video').blur(addVideo)
+    $('#input-video').keydown((evt) => {
+        if (evt.keyCode === 13) {
+            addVideo(evt)
+        }
+    })
 })
+
+$(window).keydown(function(event){
+    if(event.keyCode === 13) {
+        event.preventDefault();
+    }
+});
