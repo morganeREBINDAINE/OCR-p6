@@ -77,14 +77,12 @@ class ImageController extends AbstractController
             // @todo check if all images are uploaded or send error
             $image = new Image();
             $image->setImageFile($file)->setTrick($trick);
-            $entityManager->persist($image);
-            $images->add($image);
             if($trick->getMainImage() === null) {
-                $trick->setMainImage($image);
                 $changed = $image->getImageName();
             }
+            $entityManager->persist($image);
+            $images->add($image);
         }
-
 
         $entityManager->flush();
 

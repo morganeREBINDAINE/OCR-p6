@@ -19,8 +19,12 @@
 
         <div class="content-content">
             <div id="media">
+                <div id="media-images">
                 {% include 'tricks/list-images.html.twig' with {images: trick.images} %}
+                </div>
+                <div id="media-videos">
                 {% include 'tricks/list-videos.html.twig' with {videos: trick.videos} %}
+                </div>
             </div>
             <img class="loader" src="{{ asset('images/loader.gif') }}" style="display: none">
             <div class="content-content-btn">
@@ -34,20 +38,19 @@
             </div>
 
             <div class="content-infos">
-                {#            choose group             #}
+                {{ form_row(form.trickGroup) }}
             </div>
 
-            
-
             <div class="hidden-field">
-                <input id="trick_imagesFiles" type="file" multiple>
+                {% if trick.id is empty %}
+                    {{ form_row(form.imagesFiles) }}
+                {% else %}
+                <input id="trick_imagesFiles" name="images" type="file" multiple>
+                {% endif %}
             </div>
 
             <button type="submit" class="btn btn-primary">Envoyer</button>
             {{ form_end(form) }}
         </div>
     </div>
-    <script>
-        var trickID = {{ trick.id }};
-    </script>
 {% endblock %}
