@@ -156,7 +156,37 @@ $('.add_videos_btn').on('click', (evt)=>{
     })
 })
 
-// @todo delete video
+// delete video
+$('.trick-video-delete').on('click', (evt) => {
+    evt.preventDefault()
+    const actualBtn = $(evt.currentTarget)
+    const parentElement = evt.currentTarget.parentElement.parentElement.parentElement
+
+    console.log(evt)
+
+    actualBtn.hide()
+    $(actualBtn[0].parentElement).append($('<img src="images/loader.gif" />'))
+
+    let formData = new FormData()
+    formData.append('token', actualBtn[0].previousElementSibling.previousElementSibling.value)
+
+    $.ajax({
+        url: '/delete-video-'+ actualBtn[0].previousElementSibling.value,
+        type: "POST",
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        data: formData,
+        async: true,
+        success: (data) => {
+            parentElement.remove()
+        },
+        error: (e) => {
+            actualBtn.show()
+            console.log('error ajax', e)
+        }
+    })
+})
 
 // disable submit on enter
 $(window).keydown(function(event){
