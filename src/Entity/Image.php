@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ImageRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @Vich\Uploadable
  */
 class Image
@@ -28,9 +29,6 @@ class Image
 
     /**
      * @Vich\UploadableField(mapping="trick_image", fileNameProperty="imageName")
-     * @Assert\Image(
-     *     mimeTypes="image/jpeg"
-     * )
      * @var File|null
      */
     private $imageFile;
@@ -89,5 +87,15 @@ class Image
     public function setImageName(?string $imageName): void
     {
         $this->imageName = $imageName;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setMainImage()
+    {
+        if ($this->getTrick()->getMainImage() === null) {
+            $this->getTrick()->setMainImage($this);
+        }
     }
 }

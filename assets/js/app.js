@@ -9,4 +9,5 @@
 require('../scss/app.scss');
 require('./homepage.js');
 require('./single.js');
-require('./form.js');
+require('./edit-form.js');
+require('./create-form.js');

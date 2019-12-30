@@ -15,7 +15,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Trick
 {
     const GROUPS = [
-
+        'Grab' => 'grab',
+        'Rotation' => 'rotation',
+        'Flip' => 'flip',
+        'Slide' => 'slide',
+        'One foot' => 'one_foot',
+        'Old school' => 'old_school'
     ];
     /**
      * @ORM\Id()
@@ -49,13 +54,6 @@ class Trick
      */
     private $images;
 
-    /**
-     * @Assert\All({
-     *   @Assert\Image(
-     *    mimeTypes="image/jpeg"
-     *   )
-     * })
-     */
     private $imagesFiles;
 
     /**
@@ -72,6 +70,11 @@ class Trick
      * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist", "remove"})
      */
     private $mainImage;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    private $trickGroup;
 
     public function __construct()
     {
@@ -259,6 +262,24 @@ class Trick
     public function setMainImage(?Image $mainImage): self
     {
         $this->mainImage = $mainImage;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTrickGroup(): ?string
+    {
+        return $this->trickGroup;
+    }
+
+    /**
+     * @param string $trickGroup
+     */
+    public function setTrickGroup($trickGroup): self
+    {
+        $this->trickGroup = $trickGroup;
 
         return $this;
     }

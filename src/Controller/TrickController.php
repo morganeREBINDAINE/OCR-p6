@@ -36,6 +36,7 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+//            dump($trick);
             $trickRepository->save($trick);
             $this->addFlash('success', 'Votre figure a bien été créée. La voici !');
             return $this->redirectToRoute('display_trick', ['id' => $trick->getId()]);
@@ -58,12 +59,9 @@ class TrickController extends AbstractController
     public function edit(
         Trick $trick,
         Request $request,
-        TrickRepository $trickRepository,
-        ImageRepository $imageRepository
+        TrickRepository $trickRepository
     )
     {
-        dump($trick->getVideos()->first());
-//        $image = $imageRepository->find(6);
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
