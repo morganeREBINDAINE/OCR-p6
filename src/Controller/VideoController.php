@@ -20,25 +20,15 @@ class VideoController extends AbstractController
     /**
      * @Route("/delete-video-{id}", name="delete_video")
      */
-    public function delete(Image $image, Request $request, TrickRepository $trickRepository)
+    public function delete(Video $video, Request $request)
     {
-//        dump($request->request->all(), $image, $this->isCsrfTokenValid('delete'.$image->getId(), $request->request->get('token')));
-//        $trick = $trickRepository->find($request->request->get('trick'));
-//        $changed = false;
-//
-//
-//        if ($this->isCsrfTokenValid('delete'.$image->getId(), $request->request->get('token'))) {
-//            if ($trick->getMainImage() === $image) {
-//                $images = $trick->getImages();
-//                $images->removeElement($image);
-//                $images->isEmpty() ? $trick->setMainImage(null) : $trick->setMainImage($images->first());
-//                $changed = $trick->getMainImage() ? $trick->getMainImage()->getImageName() : 'empty';
-//            }
-//            $em = $this->getDoctrine()->getManager();
-//            $em->remove($image);
-//            $em->flush();
-//        }
-//        return new JsonResponse(['changed' => $changed]);
+        if ($this->isCsrfTokenValid('delete'.$video->getId(), $request->request->get('token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($video);
+            $em->flush();
+        }
+
+        return new JsonResponse(['success' => true]);
     }
 
     /**
