@@ -11,3 +11,4 @@ require('./homepage.js');
 require('./single.js');
 require('./edit-form.js');
 require('./create-form.js');
+require('./forms.js');
