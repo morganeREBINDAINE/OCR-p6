@@ -10,11 +10,13 @@
             <div class="content-img-name">
                 {{ form_row(form.name) }}
             </div>
-{#            <div class="image-icons">#}
-{#                <a href="" class="trick-image-edit"><i class="fas fa-pen"></i></a>#}
-{#                <a href="" class="trick-image-delete" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash-alt"></i></a>#}
-{#                <a href="" class="trick-image-add"><i class="fas fa-plus"></i></a>#}
-{#            </div>#}
+            {% if trick.id is empty %}
+            <div class="image-icons">
+                <a href="" class="trick-image-edit"><i class="fas fa-pen"></i></a>
+                <a href="" class="trick-image-delete"><i class="fas fa-trash-alt"></i></a>
+                <a href="" class="trick-image-add"><i class="fas fa-plus"></i></a>
+            </div>
+            {% endif %}
         </div>
 
         <div class="content-content">
@@ -44,6 +46,7 @@
             <div class="hidden-field">
                 {% if trick.id is empty %}
                     {{ form_row(form.imagesFiles) }}
+                    {{ form_row(form.mainImageFile) }}
                 {% else %}
                 <input id="trick_imagesFiles" name="images" type="file" multiple>
                 {% endif %}
