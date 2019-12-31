@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -70,6 +71,11 @@ class Trick
      * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist", "remove"})
      */
     private $mainImage;
+
+    /**
+     * @var File|null
+     */
+    private $mainImageFile;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
@@ -283,4 +289,29 @@ class Trick
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getMainImageFile(): ?File
+    {
+        return $this->mainImageFile;
+    }
+
+    /**
+     * @param mixed $mainImageFile
+     *
+     * @return Trick
+     */
+    public function setMainImageFile(File $mainImageFile): self
+    {
+        $image = new Image();
+        $image->setImageFile($mainImageFile);
+        $this->addImage($image)->setMainImage($image);
+
+        $this->mainImageFile = $mainImageFile;
+        return $this;
+    }
+
+
 }

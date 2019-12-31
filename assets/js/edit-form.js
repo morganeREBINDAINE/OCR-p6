@@ -62,7 +62,8 @@ if (urlRegex.test(window.location.pathname)) {
                 console.log(data)
                 if (data.changed !== false) {
                     (data.changed === 'empty') ?
-                        $('.content-img').css('background-image', 'url(/images/placehold.jpg)') : $('.content-img').css('background-image', 'url('+data.changed+')')
+                        $('.content-img').css('background-image', 'url(/images/placehold.jpg)') :
+                        $('.content-img').css('background-image', 'url('+data.changed+')')
                 }
                 $(actualBtn[0].parentElement.parentElement.parentElement).remove()
             },

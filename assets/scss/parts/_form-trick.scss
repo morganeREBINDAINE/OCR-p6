@@ -4,14 +4,6 @@
       & .trick-image-edit, & .trick-image-delete {
         display: none;
       }
-      &.has-image {
-        & .trick-image-edit, & .trick-image-delete {
-          display: initial;
-        }
-        & .trick-image-add {
-          display: none;
-        }
-      }
     }
   }
   #media {

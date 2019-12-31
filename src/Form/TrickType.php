@@ -49,6 +49,10 @@ class TrickType extends AbstractType
                 'required' => false,
                 'multiple' => true
             ]);
+            $form->add('mainImageFile', FileType::class, [
+                'required' => false,
+                'multiple' => false
+            ]);
         }
     }
 
