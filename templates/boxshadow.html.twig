@@ -2,18 +2,19 @@
 
 {% block body %}
 <div class="single-trick position-relative">
-    {% if (app.flashes('success') is defined and app.flashes('success') is not empty)
-        or (app.flashes('error') is defined and app.flashes('error') is not empty) %}
+    {% set flashes = {'success': app.flashes('success'), 'error': app.flashes('error')} %}
+
+    {% if flashes.success or flashes.error %}
     <div class="modal show" id="flash">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    {% for message in app.flashes('success') %}
+                    {% for message in flashes.success %}
                         <div class="alert alert-success">
                             {{ message }}
                         </div>
                     {% endfor %}
-                    {% for message in app.flashes('error') %}
+                    {% for message in flashes.error %}
                         <div class="alert alert-danger">
                             {{ message }}
                         </div>

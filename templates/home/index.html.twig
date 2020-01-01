@@ -13,8 +13,10 @@
             <div class="row tricks" id="tricks">
                 {% include 'parts/list-tricks.html.twig' %}
             </div>
+            {% if tricks|length is same as(10) %}
             <button type="button" class="btn btn-primary load-btn">Voir +</button>
             <img class="loader" src="{{ asset('images/loader.gif') }}">
+            {% endif %}
             <a href="#homepage" class="arrow-up">
                 <i class="fas fa-arrow-up"></i>
             </a>

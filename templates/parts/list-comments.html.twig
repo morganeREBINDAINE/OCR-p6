@@ -1,0 +1,14 @@
+{% for comment in comments %}
+    <div class="comment">
+        <div class="row">
+            <div class="col-2">
+                {#                                        <div class="comments-published-avatar">{{ comment.user.avatar }}</div>#}
+                <span class="comments-published-name">{{ comment.user.username }}</span>
+            </div>
+            <div class="col-10">
+                <p>{{ comment.content }}</p>
+                <span class="text-muted">{{ comment.created | date('d/m/Y') }}</span>
+            </div>
+        </div>
+    </div>
+{% endfor %}

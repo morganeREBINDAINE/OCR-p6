@@ -22,7 +22,7 @@ class TrickRepository extends ServiceEntityRepository
      /**
       * @return Trick[] Returns an array of Trick objects
       */
-    public function findPaginatedTricks($limit, $first)
+    public function findPaginated(int $limit, int $first)
     {
         return $this->createQueryBuilder('f')
             ->orderBy('f.id', 'DESC')

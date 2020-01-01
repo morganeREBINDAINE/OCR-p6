@@ -40,32 +40,21 @@
 
             <div class="comments-area">
                 {% if app.user %}
-                    <form>
-                        <h3>Ajouter un commentaire</h3>
-                        <textarea class="form-control" name="comment" id="comment"></textarea>
-                        <button class="btn btn-primary" type="submit">Envoyer</button>
-                    </form>
+                    {{ form_start(form) }}
+                    {{ form_row(form.content) }}
+                    <button type="submit" class="btn btn-success">Envoyer</button>
+                    {{ form_end(form) }}
                 {% endif %}
-                <div class="comments-published">
-                    {% if trick.comments is not empty %}
+                {% if comments %}
+                    <div class="comments-published">
                         <hr>
-                        {% for comment in trick.comments %}
-                            <div class="comment">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <div class="comments-published-avatar">{{ comment.user.avatar }}</div>
-                                        <span class="comments-published-name">{{ comment.user.username }}</span>
-                                    </div>
-                                    <div class="col-10">
-                                        <p>{{ comment.content }}</p>
-                                        <span class="text-muted">{{ comment.created | date('d/m/Y') }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                        <button type="button" class="btn btn-primary load-btn">Voir +</button>
+                        {% include 'parts/list-comments.html.twig' %}
+                    </div>
+                    {% if comments|length is same as(5) %}
+                    <button type="button" class="btn btn-primary load-comments-btn">Voir +</button>
+                    <img class="loader" src="{{ asset('images/loader.gif') }}">
                     {% endif %}
-                </div>
+                {% endif %}
             </div>
         </div>
     </div>

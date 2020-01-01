@@ -22,19 +22,20 @@ class HomeController extends AbstractController
      */
     public function index(TrickRepository $trickRepository)
     {
-        $tricks = $trickRepository->findPaginatedTricks(10, 0);
+        $tricks = $trickRepository->findPaginated(10, 0);
+
         return $this->render('home/index.html.twig', [
             'tricks' => $tricks
         ]);
     }
 
     /**
-     * @Route("/ajax_request/{first}", name="ajax_request")
+     * @Route("/ajax_request/tricks", name="ajax_request.tricks", methods={"POST"})
      */
-    public function ajaxRequest(TrickRepository $trickRepository, int $first) {
-        $tricks = $trickRepository->findPaginatedTricks(10, $first);
+    public function ajaxRequestTricks(TrickRepository $trickRepository, Request $request) {
+        $tricks = $trickRepository->findPaginated(10, $request->request->get('first'));
         $view = $this->renderView('parts/list-tricks.html.twig', ['tricks' => $tricks]);
-        $response = new JsonResponse(['view' => $view]);
+        $response = new JsonResponse(['view' => $view, 'count' => count($tricks)]);
 
         return $response;
     }
