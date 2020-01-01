@@ -4,6 +4,7 @@ if (urlRegex.test(window.location.pathname)) {
     //display image preview
     $('#trick_imagesFiles').on('change', (evt) => {
         $('#media-images').empty()
+        ('.delete_imgs_btn').remove()
         if (evt.target.files.length > 0) {
             for (i = 0; i < evt.target.files.length; i++) {
                 var reader = new FileReader();

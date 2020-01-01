@@ -1,4 +1,4 @@
-const urlRegex = new RegExp('^/modifier-figure-[0-9]?$')
+const urlRegex = new RegExp('^/modifier-figure-[0-9]{1,}$')
 
 if (urlRegex.test(window.location.pathname)) {
     // get trick from URL
@@ -44,6 +44,7 @@ if (urlRegex.test(window.location.pathname)) {
     $('.trick-image-delete').on('click', (evt) => {
         evt.preventDefault()
         const actualBtn = $(evt.currentTarget)
+
 
         actualBtn.hide()
         $(actualBtn[0].parentElement).append($('<img src="images/loader.gif" />'))
