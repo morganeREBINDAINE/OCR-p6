@@ -74,7 +74,7 @@ if (urlRegex.test(window.location.pathname)) {
     })
 
     // add video
-    $('.add_videos_btn').on('click', (evt)=>{
+    $('.add_videos_btn').on('click', (evt)=> {
         evt.preventDefault()
         $('.add_videos_btn').hide()
         $('.content-content-btn').append($('<div id="div-input-video"><label>Collez une balise iframe</label><input id="input-video" type="text" placeholder="<iframe src=...></iframe>"></div>'))

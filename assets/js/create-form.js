@@ -37,7 +37,7 @@ if (urlRegex.test(window.location.pathname)) {
             const image = $('<div>').css('background-image', 'url('+event.target.result+')');
             const image_container = $('<div class="col-sm generated main"></div>')
             image_container.append(image)
-            $('#media').append(image_container)
+            $('#media-images').prepend(image_container)
 
             $('.content-img').css('background-image', 'url('+event.target.result+')').addClass('has-image')
         }
@@ -56,5 +56,46 @@ if (urlRegex.test(window.location.pathname)) {
     })
 
     //add video
+    const videos = []
+    $('.add_videos_btn').on('click', (evt)=> {
+        evt.preventDefault()
+        $('.add_videos_btn').hide()
+        $('.content-content-btn').append($('<div id="div-input-video"><label>Collez une balise iframe</label><input id="input-video" type="text" placeholder="<iframe src=...></iframe>"></div>'))
 
+        const addVideo = (evt) => {
+            // @todo error msg if not match regex
+            const element = evt.target.value
+            const regex = new RegExp('^<iframe.+>$')
+
+            if (regex.test(element)) {
+                const video = $('<div col="col-sm"><div class="video">'+element+'<div class="image-icons"><a class="trick-video-delete"><i class="fas fa-trash-alt"></i></a></div></div></div>')
+                $('#media-videos').append(video)
+                //delete preview video
+                $('.trick-video-delete').off('click')
+                $('.trick-video-delete').on('click', (evt) => {
+                    evt.preventDefault()
+                    console.log('delete a video')
+                })
+
+
+                videos.push(element)
+                $('#div-input-video').remove()
+                $('.add_videos_btn').show()
+            }
+        }
+
+        $('#input-video').blur(addVideo)
+        $('#input-video').keydown((evt) => {
+            if (evt.keyCode === 13) {
+                addVideo(evt)
+            }
+        })
+    })
+
+    $('form').on('submit', () => {
+        $("<input />").attr("type", "hidden")
+            .attr("name", "videos")
+            .attr("value", videos.join('|||'))
+            .appendTo("form");
+    })
 }

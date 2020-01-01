@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Trick;
+use App\Entity\Video;
 use App\Form\TrickType;
 use App\Repository\ImageRepository;
 use App\Repository\TrickRepository;
@@ -28,7 +29,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/creer-figure", name="create_trick")
      */
-    public function create(Request $request, TrickRepository $trickRepository)
+    public function create(Request $request, TrickRepository $trickRepository, EntityManagerInterface $entityManager)
     {
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick);
@@ -36,10 +37,17 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-//            dump($trick);
-            $trickRepository->save($trick);
-            $this->addFlash('success', 'Votre figure a bien été créée. La voici !');
-            return $this->redirectToRoute('display_trick', ['id' => $trick->getId()]);
+            $videos = explode('|||', $request->request->get('videos'));
+
+//            foreach ($videos as $balise) {
+//                $video = new Video();
+//                $video->setBalise($balise)->setTrick($trick);
+//                $entityManager->persist($video);
+//            }
+//
+//            $trickRepository->save($trick);
+//            $this->addFlash('success', 'Votre figure a bien été créée. La voici !');
+//            return $this->redirectToRoute('display_trick', ['id' => $trick->getId()]);
         }
 
         return $this->render('tricks/form.html.twig', [
