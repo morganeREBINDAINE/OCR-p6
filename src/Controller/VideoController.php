@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class VideoController extends AbstractController
 {
     /**
-     * @Route("/delete-video-{id}", name="delete_video")
+     * @Route("/delete-video-{id}", name="delete_video", methods={"DELETE"})
      */
     public function delete(Video $video, Request $request)
     {
@@ -45,7 +45,7 @@ class VideoController extends AbstractController
         $trick->addVideo($video);
         $entityManager->flush();
 
-        $view = $this->renderView('tricks/list-videos.html.twig', ['videos' => [$video]]);
+        $view = $this->renderView('parts/list-videos.html.twig', ['videos' => [$video]]);
 
         return new JsonResponse(['view' => $view]);
     }

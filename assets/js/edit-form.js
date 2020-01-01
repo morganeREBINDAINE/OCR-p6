@@ -1,6 +1,9 @@
 const urlRegex = new RegExp('^/modifier-figure-[0-9]?$')
 
 if (urlRegex.test(window.location.pathname)) {
+    // get trick from URL
+    // const trickID =
+
     // upload imgs
     $('#trick_imagesFiles').on('change', (evt) => {
         $('.add_imgs_btn').hide()

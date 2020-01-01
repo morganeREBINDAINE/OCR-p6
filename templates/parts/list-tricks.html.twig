@@ -3,7 +3,7 @@
         <div class="trick-card">
             <a href="{{ path('display_trick', {id: trick.id}) }}">
                 <div class="trick-card-img" style="background-image:url(
-                {% if trick.imageName is defined and trick.imageName is not empty %}{{ asset('images/tricks/' ~ trick.imageName) | imagine_filter('thumb') }}
+                {% if trick.mainImage is defined and trick.mainImage is not empty %}{{ asset('images/tricks/' ~ trick.mainImage.imageName) | imagine_filter('thumb') }}
                 {% else %}{{ asset('images/placehold.jpg') | imagine_filter('thumb') }}{% endif %}
             )"></div>
             </a>
