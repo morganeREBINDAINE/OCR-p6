@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ImageController extends AbstractController
 {
     /**
-     * @Route("/delete-image-{id}", name="delete_image")
+     * @Route("/delete-image-{id}", name="delete_image", methods={"DELETE"})
      */
     public function delete(Image $image, Request $request, TrickRepository $trickRepository)
     {
@@ -86,7 +86,7 @@ class ImageController extends AbstractController
 
         $entityManager->flush();
 
-        $view = $this->renderView('tricks/list-images.html.twig', ['images' => $images]);
+        $view = $this->renderView('parts/list-images.html.twig', ['images' => $images]);
         return new JsonResponse(['view' => $view, 'changed' => $changed]);
     }
 }

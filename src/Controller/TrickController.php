@@ -39,15 +39,15 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $videos = explode('|||', $request->request->get('videos'));
 
-//            foreach ($videos as $balise) {
-//                $video = new Video();
-//                $video->setBalise($balise)->setTrick($trick);
-//                $entityManager->persist($video);
-//            }
-//
-//            $trickRepository->save($trick);
-//            $this->addFlash('success', 'Votre figure a bien été créée. La voici !');
-//            return $this->redirectToRoute('display_trick', ['id' => $trick->getId()]);
+            foreach ($videos as $balise) {
+                $video = new Video();
+                $video->setBalise($balise)->setTrick($trick);
+                $entityManager->persist($video);
+            }
+
+            $trickRepository->save($trick);
+            $this->addFlash('success', 'Votre figure a bien été créée. La voici !');
+            return $this->redirectToRoute('display_trick', ['id' => $trick->getId()]);
         }
 
         return $this->render('tricks/form.html.twig', [
@@ -86,12 +86,12 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/delete-trick-{id}", name="delete_trick")
+     * @Route("/delete-trick-{id}", name="delete_trick", methods={"DELETE"})
      */
     public function delete(Trick $trick, Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         if ($this->isCsrfTokenValid('delete'.$trick->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
             $em->remove($trick);
             $em->flush();
         }

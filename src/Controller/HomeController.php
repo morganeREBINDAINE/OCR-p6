@@ -33,7 +33,7 @@ class HomeController extends AbstractController
      */
     public function ajaxRequest(TrickRepository $trickRepository, int $first) {
         $tricks = $trickRepository->findPaginatedTricks(10, $first);
-        $view = $this->renderView('home/list-tricks.html.twig', ['tricks' => $tricks]);
+        $view = $this->renderView('parts/list-tricks.html.twig', ['tricks' => $tricks]);
         $response = new JsonResponse(['view' => $view]);
 
         return $response;

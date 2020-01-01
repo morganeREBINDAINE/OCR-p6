@@ -5,6 +5,10 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\PreRemove;
+use Doctrine\ORM\Mapping\PreUpdate;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -12,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
  * @UniqueEntity("name")
+ * @HasLifecycleCallbacks
  */
 class Trick
 {
@@ -68,7 +73,8 @@ class Trick
     private $comments;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @JoinColumn(name="main_image_id", referencedColumnName="id", onDelete="set null")
      */
     private $mainImage;
 
@@ -313,5 +319,17 @@ class Trick
         return $this;
     }
 
+    /**
+     * @PreUpdate
+     */
+    public function preUpdate() {
+        $this->updated = new \DateTimeImmutable();
+    }
 
+    /**
+     * @PreRemove
+     */
+    public function preRemove() {
+        $this->setMainImage(null);
+    }
 }

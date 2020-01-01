@@ -4,21 +4,35 @@ if (urlRegex.test(window.location.pathname)) {
     //display image preview
     $('#trick_imagesFiles').on('change', (evt) => {
         $('#media-images').empty()
-        for (i = 0; i < evt.target.files.length; i++) {
-            var reader = new FileReader();
+        if (evt.target.files.length > 0) {
+            for (i = 0; i < evt.target.files.length; i++) {
+                var reader = new FileReader();
 
-            reader.onload = function(event) {
-                const image = $('<div>').css('background-image', 'url('+event.target.result+')');
-                const image_container = $('<div class="col-sm generated"></div>')
-                image_container.append(image)
-                $('#media-images').append(image_container)
+                reader.onload = function(event) {
+                    const image = $('<div>').css('background-image', 'url('+event.target.result+')');
+                    const container = $('<div class="col-sm generated"></div>').append(image)
+                    $('#media-images').append(container)
+                }
+
+                reader.readAsDataURL(evt.target.files[i]);
             }
 
-            reader.readAsDataURL(evt.target.files[i]);
+            $('<a class=" delete_imgs_btn btn btn-danger">Supprimer les images</a>').insertAfter($('#media-images'))
+
+
+            $('.delete_imgs_btn').on('click', (evt) => {
+                evt.preventDefault()
+                $('#trick_imagesFiles').val('')
+                $('#media-images').empty()
+                $('.delete_imgs_btn').remove()
+                $('.add_imgs_btn').html('Ajouter des images')
+            })
+
+            $('.add_imgs_btn').html('Modifier les images')
         }
     })
 
-    //main_img trigger click
+    // main img trigger click
     $('.trick-image-edit, .trick-image-add').on('click', (evt) => {
         evt.preventDefault()
         $('#trick_mainImageFile').trigger('click')
@@ -70,7 +84,8 @@ if (urlRegex.test(window.location.pathname)) {
             if (regex.test(element)) {
                 const video = $('<div col="col-sm"><div class="video">'+element+'<div class="image-icons"><a class="trick-video-delete"><i class="fas fa-trash-alt"></i></a></div></div></div>')
                 $('#media-videos').append(video)
-                //delete preview video
+
+                //delete previewed video
                 $('.trick-video-delete').off('click')
                 $('.trick-video-delete').on('click', (evt) => {
                     evt.preventDefault()
@@ -100,6 +115,7 @@ if (urlRegex.test(window.location.pathname)) {
         })
     })
 
+    // onsubmit, send videos
     $('form').on('submit', () => {
         $("<input />").attr("type", "hidden")
             .attr("name", "videos")

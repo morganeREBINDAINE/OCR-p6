@@ -22,10 +22,10 @@
         <div class="content-content">
             <div id="media">
                 <div id="media-images">
-                {% include 'tricks/list-images.html.twig' with {images: trick.images} %}
+                {% include 'parts/list-images.html.twig' with {images: trick.images} %}
                 </div>
                 <div id="media-videos">
-                {% include 'tricks/list-videos.html.twig' with {videos: trick.videos} %}
+                {% include 'parts/list-videos.html.twig' with {videos: trick.videos} %}
                 </div>
             </div>
             <img class="loader" src="{{ asset('images/loader.gif') }}" style="display: none">
