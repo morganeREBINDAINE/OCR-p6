@@ -42,8 +42,6 @@ class TrickType extends AbstractType
         $form = $event->getForm();
         $data = $event->getData();
 
-        dump($data);
-
         if ($data->getId() === null) {
             $form->add('imagesFiles', FileType::class, [
                 'required' => false,

@@ -40,6 +40,7 @@ class Video
     public function setTrick(?Trick $trick): self
     {
         $this->trick = $trick;
+        $trick->addVideo($this);
 
         return $this;
     }
