@@ -20,7 +20,6 @@ class TrickController extends AbstractController
      */
     public function displayTrick(Trick $trick)
     {
-        dump($trick);
         return $this->render('tricks/single.html.twig', [
             'trick' => $trick
         ]);
@@ -40,9 +39,13 @@ class TrickController extends AbstractController
             $videos = explode('|||', $request->request->get('videos'));
 
             foreach ($videos as $balise) {
-                $video = new Video();
-                $video->setBalise($balise)->setTrick($trick);
-                $entityManager->persist($video);
+                if (preg_match('#^<iframe.+>$#', $balise)) {
+                    $video = new Video();
+                    $video->setBalise($balise)->setTrick($trick);
+                    $entityManager->persist($video);
+                } else {
+                    $this->addFlash('error', 'Cependant, une des balises vidéos n\'est pas conforme. Vous pouvez tenter d\'en ajouter en cliquant sur l\'icône d\'édition.');
+                }
             }
 
             $trickRepository->save($trick);
@@ -86,7 +89,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/delete-trick-{id}", name="delete_trick", methods={"DELETE"})
+     * @Route("/delete-trick-{id}", name="delete_trick", methods={"POST"})
      */
     public function delete(Trick $trick, Request $request)
     {

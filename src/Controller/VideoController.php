@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class VideoController extends AbstractController
 {
     /**
-     * @Route("/delete-video-{id}", name="delete_video", methods={"DELETE"})
+     * @Route("/delete-video-{id}", name="delete_video", methods={"POST"})
      */
     public function delete(Video $video, Request $request)
     {

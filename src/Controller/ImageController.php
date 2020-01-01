@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ImageController extends AbstractController
 {
     /**
-     * @Route("/delete-image-{id}", name="delete_image", methods={"DELETE"})
+     * @Route("/delete-image-{id}", name="delete_image", methods={"POST"})
      */
     public function delete(Image $image, Request $request, TrickRepository $trickRepository)
     {
