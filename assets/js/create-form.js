@@ -74,7 +74,15 @@ if (urlRegex.test(window.location.pathname)) {
                 $('.trick-video-delete').off('click')
                 $('.trick-video-delete').on('click', (evt) => {
                     evt.preventDefault()
-                    console.log('delete a video')
+                    const targetVideo = evt.currentTarget.parentElement.parentElement.parentElement
+                    const allVideos = document.querySelector('#media-videos').children
+
+                    for (var i = 0; i < allVideos.length; i++) {
+                        if (allVideos[i] == targetVideo) {
+                            videos.splice(i, 1)
+                            $(targetVideo).remove()
+                        }
+                    }
                 })
 
 
