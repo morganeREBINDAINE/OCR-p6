@@ -74,7 +74,7 @@ class Trick
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @JoinColumn(name="main_image_id", referencedColumnName="id", onDelete="set null")
+     * @JoinColumn(name="main_image_id", referencedColumnName="id", onDelete="set null", nullable=true)
      */
     private $mainImage;
 
@@ -324,12 +324,5 @@ class Trick
      */
     public function preUpdate() {
         $this->updated = new \DateTimeImmutable();
-    }
-
-    /**
-     * @PreRemove
-     */
-    public function preRemove() {
-        $this->setMainImage(null);
     }
 }

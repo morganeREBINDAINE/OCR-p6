@@ -2,7 +2,7 @@ const urlRegex = new RegExp('^/modifier-figure-[0-9]?$')
 
 if (urlRegex.test(window.location.pathname)) {
     // get trick from URL
-    // const trickID =
+    const trickID = window.location.pathname.split('-')[2]
 
     // upload imgs
     $('#trick_imagesFiles').on('change', (evt) => {
@@ -44,7 +44,6 @@ if (urlRegex.test(window.location.pathname)) {
     $('.trick-image-delete').on('click', (evt) => {
         evt.preventDefault()
         const actualBtn = $(evt.currentTarget)
-        const loader = $('.loader').clone()
 
         actualBtn.hide()
         $(actualBtn[0].parentElement).append($('<img src="images/loader.gif" />'))
@@ -66,7 +65,7 @@ if (urlRegex.test(window.location.pathname)) {
                 if (data.changed !== false) {
                     (data.changed === 'empty') ?
                         $('.content-img').css('background-image', 'url(/images/placehold.jpg)') :
-                        $('.content-img').css('background-image', 'url('+data.changed+')')
+                        $('.content-img').css('background-image', 'url(/images/tricks/'+data.changed+')')
                 }
                 $(actualBtn[0].parentElement.parentElement.parentElement).remove()
             },

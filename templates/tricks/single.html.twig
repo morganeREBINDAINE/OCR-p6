@@ -6,12 +6,12 @@
              style="background-image:url(
              {% if trick.mainImage is defined and trick.mainImage is not empty %}{{ asset('images/tricks/' ~ trick.mainImage.imageName) }}
              {% else %}{{ asset('images/placehold.jpg') }}{% endif %}
-         )">
+                     )">
             <div class="content-img-name">
                 <h2>{{ trick.name }}</h2>
             </div>
             <div class="image-icons">
-                <a href="{{path('edit_trick', {id: trick.id})}}"><i class="fas fa-pen"></i></a>
+                <a href="{{ path('edit_trick', {id: trick.id}) }}"><i class="fas fa-pen"></i></a>
                 <a href="" data-toggle="modal" data-target="#deleteModal{{ trick.id }}"><i class="fas fa-trash-alt"></i></a>
             </div>
             {% include('parts/delete-modal.html.twig') %}
@@ -24,14 +24,14 @@
                 </div>
             </div>
 
-{#            <button class="btn btn-primary" type="button">Voir les médias</button>#}
+            {#            <button class="btn btn-primary" type="button">Voir les médias</button>#}
 
             <div class="content-description">
                 {{ trick.description|raw }}
             </div>
 
             <div class="content-infos">
-                                <div class="content-infos-group">{{ trick.trickGroup }}</div>
+                <div class="content-infos-group">{{ trick.trickGroup }}</div>
                 <div class="content-infos-date-creation text-right text-muted">{{ trick.created | date('d/m/Y') }}</div>
                 {% if trick.updated %}
                     <div class="content-infos-date-updated">{{ trick.updated | date('d/m/Y') }}</div>
@@ -40,11 +40,11 @@
 
             <div class="comments-area">
                 {% if app.user %}
-                <form>
-                    <h3>Ajouter un commentaire</h3>
-                    <textarea class="form-control" name="comment" id="comment"></textarea>
-                    <button class="btn btn-primary" type="submit">Envoyer</button>
-                </form>
+                    <form>
+                        <h3>Ajouter un commentaire</h3>
+                        <textarea class="form-control" name="comment" id="comment"></textarea>
+                        <button class="btn btn-primary" type="submit">Envoyer</button>
+                    </form>
                 {% endif %}
                 <div class="comments-published">
                     {% if trick.comments is not empty %}
