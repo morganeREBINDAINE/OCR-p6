@@ -2,13 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Trick;
+use App\Entity\User;
 use App\Entity\Video;
+use App\Form\CommentType;
 use App\Form\TrickType;
-use App\Repository\ImageRepository;
+use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,11 +22,45 @@ class TrickController extends AbstractController
     /**
      * @Route("/figure-{id}", name="display_trick")
      */
-    public function displayTrick(Trick $trick)
+    public function displayTrick(Trick $trick, Request $request, EntityManagerInterface $entityManager, CommentRepository $commentRepository)
     {
+        $comments = $commentRepository->findPaginated(5, 0, $trick);
+
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setTrick($trick)->setUser($this->getUser());
+            $entityManager->persist($comment);
+            $entityManager->flush();
+            $this->addFlash('success', 'Votre commentaire a bien été ajouté.');
+            return $this->redirectToRoute('display_trick', ['id' => $trick->getId()]);
+        }
+
         return $this->render('tricks/single.html.twig', [
-            'trick' => $trick
+            'trick' => $trick,
+            'comments' => $comments,
+            'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/ajax_request/comments", name="ajax_request.comments", methods={"POST"})
+     * @param CommentRepository $commentRepository
+     * @param TrickRepository   $trickRepository
+     * @param Request           $request
+     *
+     * @return JsonResponse
+     */
+    public function ajaxRequestComments(CommentRepository $commentRepository, TrickRepository $trickRepository, Request $request) {
+        $trick = $trickRepository->find($request->request->get('trick'));
+        $comments = $commentRepository->findPaginated(5, $request->request->get('first'), $trick);
+        $view = $this->renderView('parts/list-comments.html.twig', ['comments' => $comments]);
+        $response = new JsonResponse(['view' => $view, 'count' => count($comments)]);
+
+        return $response;
     }
 
     /**

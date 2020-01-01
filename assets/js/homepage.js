@@ -28,14 +28,27 @@ $(function(){
 $('.load-btn').on('click', function() {
     $('.load-btn').hide()
     $('.loader').show()
-    let id = $('.trick-card').length;
+
+    var formData = new FormData()
+    formData.append('first', $('.trick-card').length)
+
     $.ajax({
-        url:'/ajax_request/' + id,
-        type: "GET",
+        url:'/ajax_request/tricks',
+        type: "POST",
         dataType: "json",
+        processData: false,
+        contentType: false,
+        data: formData,
         async: true,
         success: (data) => {
-            $('.load-btn').show()
+            switch (data.count) {
+                case 5:
+                    $('.load-btn').show()
+                    break
+                case 0:
+                    $('#tricks').append($('<div>Il n\'y a plus de figures.</div>'))
+                    break
+            }
             $('.loader').hide()
             $('#tricks').append(data.view)
             $('.arrow-up').show()
