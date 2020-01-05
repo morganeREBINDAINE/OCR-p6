@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Token
 {
     const TYPE_SUBSCRIPTION = 'subscription';
+    const TYPE_FORGOTTEN_PASSWORD = 'forgotten_password';
 
     /**
      * @ORM\Id()
@@ -64,6 +65,13 @@ class Token
     public function getUser(): ?User
     {
         return $this->user;
+    }
+
+    public function setUser(User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 
     public function getAccessed(): ?\DateTimeInterface

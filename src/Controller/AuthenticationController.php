@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Token;
 use App\Entity\User;
 use App\Form\RegistrationType;
+use App\Form\ResetPasswordType;
+use App\Repository\TokenRepository;
 use App\Repository\UserRepository;
 use App\Services\Mailer;
 use Doctrine\ORM\EntityManagerInterface;
@@ -80,6 +82,51 @@ class AuthenticationController extends AbstractController
             return $this->render('home/message.html.twig');
         }
 
+        // @todo invalid token message
+        throw new NotFoundHttpException();
+    }
+
+    /**
+     * @Route("/mot-de-passe-oublie", name="forgotten_password")
+     */
+    public function forgottenPassword(Request $request, UserRepository $userRepository, Mailer $mailer)
+    {
+        if ($request->isMethod('POST') && $request->request->get('email')) {
+            if ($user = $userRepository->findOneBy(['email' => $request->request->get('email')])) {
+                $mailer->sendForgottenPasswordMail($user);
+            }
+            $this->addFlash('success-forgotten-password', 'Un email de réinitialisation de mot de passe a bien été envoyé à l\'adresse email indiquée.');
+            return $this->redirectToRoute('app_login');
+        }
+
+        return $this->render('authentication/forgotten_password.html.twig', [
+
+        ]);
+    }
+
+    /**
+     * @Route("/reset/{token}", name="reset_password")
+     */
+    public function resetPassword(Token $validToken, EntityManagerInterface $entityManager, Request $request, UserPasswordEncoderInterface $encoder, TokenRepository $tokenRepository)
+    {
+        if ($validToken && $validToken->getType() === 'forgotten_password' && $validToken->getAccessed() === null) {
+            $user = $validToken->getUser();
+            $form = $this->createForm(ResetPasswordType::class, $user);
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()) {
+                $password = $encoder->encodePassword($user, $user->getPassword());
+                $validToken->setAccessed(new \DateTimeImmutable());
+                $user->setPassword($password);
+                $entityManager->flush();
+                $this->addFlash('success-forgotten-password', 'Félicitations, votre mot de passe a bien été réinitialisé.');
+                return $this->redirectToRoute('app_login');
+            }
+
+            return $this->render('authentication/reset_password.html.twig', [
+                'form' => $form->createView()
+            ]);
+        }
         // @todo invalid token message
         throw new NotFoundHttpException();
     }
