@@ -60,7 +60,7 @@ class User implements UserInterface
     {
         $this->created = new \DateTimeImmutable();
         $this->tokens = new ArrayCollection();
-        $this->addToken(new Token(Token::TYPE_SUBSCRIPTION, $this));
+        $this->addToken(new Token(Token::TYPE_SUBSCRIPTION));
         $this->comments = new ArrayCollection();
     }
 
@@ -167,16 +167,10 @@ class User implements UserInterface
         return $this->tokens;
     }
 
-    public function setToken(int $tokenType): self
-    {
-        $token = new Token($tokenType, $this);
-        $this->addToken($token);
-        return $this;
-    }
-
-    protected function addToken(Token $token): self
+    public function addToken(Token $token): self
     {
         if (!$this->tokens->contains($token)) {
+            $token->setUser($this);
             $this->tokens[] = $token;
         }
 
