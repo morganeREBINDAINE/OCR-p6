@@ -60,7 +60,7 @@ class User implements UserInterface
     {
         $this->created = new \DateTimeImmutable();
         $this->tokens = new ArrayCollection();
-        $this->addToken(new Token(Token::TYPE_SUBSCRIPTION));
+        $this->addToken(new Token(Token::TYPE_SUBSCRIPTION, $this));
         $this->comments = new ArrayCollection();
     }
 
