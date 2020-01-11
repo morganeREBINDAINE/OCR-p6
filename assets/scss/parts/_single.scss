@@ -32,6 +32,10 @@
       top: -350px;
     }
 
+    &-description {
+      margin: 20px 0 40px;
+    }
+
     &-container {
       margin: auto;
       width: 90%;
@@ -44,7 +48,7 @@
     &-details {
       width: 100%;
       background: $white;
-      box-shadow: 0 0 15px black;
+      box-shadow: 0 0 15px $grey;
       overflow: hidden;
       border-radius: 10px;
 
@@ -79,13 +83,16 @@
     }
 
     &-content {
-      text-align: center;
-      padding: 20px;
+      padding: 40px;
 
       .image, .video {
         position: relative;
-        width: 250px;
-        height: 150px;
+        background-size: cover;
+        height: 135px;
+        width: 170px;
+        background-position: center;
+        margin: 5px;
+        font-size: 14px;
 
         iframe {
           width: 100%;
@@ -98,19 +105,15 @@
           .fas.fa-pen {
             margin-right: 9px;
           }
-        }
-
-        &-div {
-          background-size: cover;
-          height: 180px;
-          width: 250px;
-          background-position: center;
+          .fas.fa-trash-alt {
+            color: $darkblue;
+          }
         }
       }
     }
 
     .btn {
-      margin-bottom: 20px;
+      margin: 20px auto;
     }
 
     .comments-area {

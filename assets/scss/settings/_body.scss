@@ -2,13 +2,33 @@ body {
   // general
   font-family: $font;
   a {
+    color: $darkblue;
     &:hover {
       text-decoration: none;
+      color: darken($darkblue, 10%);
     }
   }
   .body {
     @include resp-tablet {
       margin-top: 50px;
+    }
+  }
+
+  .btn.btn-red {
+    background: $darkred;
+    color: white;
+
+    &:hover {
+      background: darken($darkred, 10%);
+    }
+  }
+
+  .btn.btn-blue {
+    background: $darkblue;
+    color: white;
+
+    &:hover {
+      background: darken($darkblue, 10%);
     }
   }
 
@@ -31,12 +51,13 @@ body {
       width: 90px;
       position: absolute;
       top: 0;
+      box-shadow: 0 0 10px 3px #64909a;
+      border-radius: 99px;
     }
   }
 
   // footer
   footer {
-    background: #dedede;
     padding: 40px 0;
   }
 }

@@ -28,7 +28,7 @@
       width: 100%;
       border-radius: 5px;
       overflow: hidden;
-      box-shadow: 0 0 15px black;
+      box-shadow: 0 0 15px 2px $darkblue;
       max-width: 210px;
       margin: auto;
 
@@ -77,6 +77,10 @@
     bottom: 40px;
     right: 20px;
     font-size: 40px;
+  }
+
+  i{
+    color: $darkblue;
   }
 }
 

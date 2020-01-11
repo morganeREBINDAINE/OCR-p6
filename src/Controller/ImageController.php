@@ -52,6 +52,7 @@ class ImageController extends AbstractController
         $trick = $trickRepository->find($request->request->get('trick'));
 
         if ($trick && $this->isCsrfTokenValid('delete'.$image->getId(), $request->request->get('token'))) {
+
             $trick->setMainImage($image);
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
