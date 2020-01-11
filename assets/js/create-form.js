@@ -4,15 +4,14 @@ if (urlRegex.test(window.location.pathname)) {
     //display image preview
     $('#trick_imagesFiles').on('change', (evt) => {
         $('#media-images').empty()
-        ('.delete_imgs_btn').remove()
+        $('.delete_imgs_btn').remove()
         if (evt.target.files.length > 0) {
             for (i = 0; i < evt.target.files.length; i++) {
                 var reader = new FileReader();
 
                 reader.onload = function(event) {
-                    const image = $('<div>').css('background-image', 'url('+event.target.result+')');
-                    const container = $('<div class="col-sm generated"></div>').append(image)
-                    $('#media-images').append(container)
+                    const image = $('<div class="image generated" style="background-image: url('+event.target.result+')"></div>').append(image)
+                    $('#media-images').append(image)
                 }
 
                 reader.readAsDataURL(evt.target.files[i]);
@@ -49,10 +48,8 @@ if (urlRegex.test(window.location.pathname)) {
 
         reader.onload = function(event) {
             $('.generated.main').remove()
-            const image = $('<div>').css('background-image', 'url('+event.target.result+')');
-            const image_container = $('<div class="col-sm generated main"></div>')
-            image_container.append(image)
-            $('#media-images').prepend(image_container)
+            const image = $('<div class="image generated main" style="background-image: url('+event.target.result+')"></div>')
+            $('#media-images').prepend(image)
 
             $('.content-img').css('background-image', 'url('+event.target.result+')').addClass('has-image')
         }

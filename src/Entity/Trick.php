@@ -73,7 +73,7 @@ class Trick
     private $comments;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="App\Entity\Image")
      * @JoinColumn(name="main_image_id", referencedColumnName="id", onDelete="set null", nullable=true)
      */
     private $mainImage;

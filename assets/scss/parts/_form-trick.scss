@@ -1,16 +1,43 @@
 .trick-form {
+
+  //image on top
   .content-img {
     .image-icons {
       & .trick-image-edit, & .trick-image-delete {
         display: none;
       }
     }
+    label{
+      margin-bottom: 10px;
+    }
+    input {
+      min-width: 400px;
+    }
+  }
+
+
+
+
+  i {
+    color: $blue!important;
+  }
+
+
+
+  .input-video {
+    max-width: 400px;
   }
   #media {
     .trick-image-delete {
       background: none;
       border: none;
       padding: 0;
+    }
+
+    &-images, &-videos {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
     }
   }
 
@@ -41,5 +68,10 @@
   .generated > * {
     width: 200px;
     height: 100px;
+  }
+
+  label {
+    margin-bottom: 10px
+  ;
   }
 }

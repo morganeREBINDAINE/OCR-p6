@@ -1,17 +1,14 @@
 {% for image in images %}
-    <div class="col-sm">
-        <div class="image">
-            <div class="image-div" style="background-image: url({{ asset('images/tricks/' ~ image.imageName) }})"></div>
-            {% if app.request.get('_route') is same as ("edit_trick") %}
+    <div class="image" style="background-image: url({{ asset('images/tricks/' ~ image.imageName) }})">
+        {% if app.request.get('_route') is not same as ("display_trick") %}
             <div class="image-icons">
-                <input type="hidden" name="_token" value="{{csrf_token('delete'~ image.id)}}">
-                <input type="hidden" name="_image" value="{{image.id}}">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete'~ image.id) }}">
+                <input type="hidden" name="_image" value="{{ image.id }}">
                 <a class="trick-image-delete"><i class="fas fa-trash-alt"></i></a>
             </div>
             <div class="mainimg-btn">
                 Choisir en image principale
             </div>
-            {% endif %}
-        </div>
+        {% endif %}
     </div>
 {% endfor %}

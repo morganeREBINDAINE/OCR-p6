@@ -1,14 +1,12 @@
 {% for video in videos %}
-    <div class="col-sm">
-        <div class="video">
-            {{ video.balise | raw }}
-            {% if form is defined %}
+    <div class="video">
+        {{ video.balise | raw }}
+        {% if app.request.get('_route') is not same as ("display_trick") %}
             <div class="image-icons">
-                <input type="hidden" name="_token" value="{{csrf_token('delete'~ video.id)}}">
-                <input type="hidden" name="_image" value="{{video.id}}">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete'~ video.id) }}">
+                <input type="hidden" name="_image" value="{{ video.id }}">
                 <a class="trick-video-delete"><i class="fas fa-trash-alt"></i></a>
             </div>
-            {% endif %}
-        </div>
+        {% endif %}
     </div>
 {% endfor %}

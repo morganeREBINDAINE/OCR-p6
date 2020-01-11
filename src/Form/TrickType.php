@@ -19,7 +19,9 @@ class TrickType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
+            ->add('name', TextType::class, [
+                'label' => 'Titre du trick'
+            ])
             ->add('description', CKEditorType::class, [
                 'config' => array('toolbar' => 'basic'),
             ])
@@ -27,7 +29,7 @@ class TrickType extends AbstractType
                 'choices' => [
                     Trick::GROUPS
                 ],
-                'label' => 'Groupe'
+                'label' => 'Catégorie du trick'
             ])
             ->addEventListener(
                 FormEvents::PRE_SET_DATA,
