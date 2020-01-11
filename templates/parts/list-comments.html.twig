@@ -1,13 +1,14 @@
 {% for comment in comments %}
     <div class="comment">
         <div class="row">
-            <div class="col-2">
-                {#                                        <div class="comments-published-avatar">{{ comment.user.avatar }}</div>#}
-                <span class="comments-published-name">{{ comment.user.username }}</span>
+            <div class="col-2 mt-1">
+                <div class="comment-published-avatar"></div>
+{#                <div class="comments-published-avatar" style="background-image: url({{ asset('images/avatars/' ~ comment.user.avatar) }})"></div>#}
+                <span class="comment-published-name">{{ comment.user.username }}</span>
             </div>
-            <div class="col-10">
+            <div class="col-10 comment-content">
                 <p>{{ comment.content }}</p>
-                <span class="text-muted">{{ comment.created | date('d/m/Y') }}</span>
+                <div class="text-right"><span>{{ comment.created | date('d/m/Y') }}</span></div>
             </div>
         </div>
     </div>
