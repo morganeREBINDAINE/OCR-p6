@@ -27,32 +27,45 @@
             {#            <button class="btn btn-primary" type="button">Voir les médias</button>#}
 
             <div class="content-description">
+                <h4>Descriptif du trick</h4>
                 {{ trick.description|raw }}
             </div>
 
             <div class="content-infos">
-                <div class="content-infos-group">{{ trick.trickGroup }}</div>
-                <div class="content-infos-date-creation text-right text-muted">{{ trick.created | date('d/m/Y') }}</div>
-                {% if trick.updated %}
-                    <div class="content-infos-date-updated">{{ trick.updated | date('d/m/Y') }}</div>
-                {% endif %}
+                <div class="text-right">
+                    <div class="content-infos-group">{{ trick.trickGroup }}</div>
+
+                </div>
+                <div class="row content-infos-date">
+                    <div class="col-sm text-left">
+                        <span class="content-infos-date-creation">Rédigé le {{ trick.created | date('d/m/Y') }}</span>
+                    </div>
+                    {% if trick.updated %}
+                        <div class="col-sm text-right">
+                            <span class="content-infos-date-updated">Mis à jour le {{ trick.updated | date('d/m/Y') }}</span>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
 
             <div class="comments-area">
                 {% if app.user %}
+                    <hr>
+                    <h4>Ajouter un commentaire</h4>
                     {{ form_start(form) }}
                     {{ form_row(form.content) }}
-                    <button type="submit" class="btn btn-success">Envoyer</button>
+                    <button type="submit" class="btn btn-blue">Envoyer</button>
                     {{ form_end(form) }}
                 {% endif %}
                 {% if comments %}
                     <div class="comments-published">
                         <hr>
+                        <h4>Commentaires en ligne</h4>
                         {% include 'parts/list-comments.html.twig' %}
                     </div>
                     {% if comments|length is same as(5) %}
-                    <button type="button" class="btn btn-primary load-comments-btn">Voir +</button>
-                    <img class="loader" src="{{ asset('images/loader.gif') }}">
+                        <button type="button" class="btn btn-red load-comments-btn">Voir +</button>
+                        <img class="loader" src="{{ asset('images/loader.gif') }}">
                     {% endif %}
                 {% endif %}
             </div>

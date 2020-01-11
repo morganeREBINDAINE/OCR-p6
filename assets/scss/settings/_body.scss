@@ -1,12 +1,18 @@
 body {
   // general
   font-family: $font;
+  color: $darkblue;
   a {
     color: $darkblue;
     &:hover {
       text-decoration: none;
       color: darken($darkblue, 10%);
     }
+  }
+  h4 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    padding-top: 20px;
   }
   .body {
     @include resp-tablet {
