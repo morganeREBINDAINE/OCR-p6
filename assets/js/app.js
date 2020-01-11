@@ -12,3 +12,10 @@ require('./single.js');
 require('./edit-form.js');
 require('./create-form.js');
 require('./forms.js');
+
+document.addEventListener("DOMContentLoaded", function (event) {
+    var height = document.body.offsetHeight
+    if (height < screen.height) {
+        document.querySelector('footer').classList.add('stickybottom');
+    }
+}, false);
