@@ -62,7 +62,7 @@ class AuthenticationController extends AbstractController
             $userRepository->save($user);
             $mailer->sendSubscriptionMail($user);
             $this->addFlash('success', 'Vous avez bien été inscrit. Veuillez cliquez sur le lien de validation de compte envoyé sur le mail que vous avez indiqué.');
-            return $this->redirectToRoute('success');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('authentication/registration.html.twig', [
@@ -119,7 +119,7 @@ class AuthenticationController extends AbstractController
                 $validToken->setAccessed(new \DateTimeImmutable());
                 $user->setPassword($password);
                 $entityManager->flush();
-                $this->addFlash('success-forgotten-password', 'Félicitations, votre mot de passe a bien été réinitialisé.');
+                $this->addFlash('success', 'Félicitations, votre mot de passe a bien été réinitialisé.');
                 return $this->redirectToRoute('app_login');
             }
 
