@@ -78,7 +78,7 @@
       width: 100%;
       background-position: center;
       background-size: cover;
-      background-image: url(/images/empty.jpg);
+      background-image: url(/images/placehold.jpg);
 
 
       &-name {
@@ -158,6 +158,7 @@
         max-width: 650px;
         margin:20px auto;
 
+
         &-content {
           background: lighten($blue, 10%);
           padding: 20px;
@@ -182,9 +183,9 @@
         &-published-avatar {
           width: 50px;
           height: 50px;
-          background: red;
           margin: auto;
           border-radius: 99px;
+          background-size: contain;
         }
       }
     }

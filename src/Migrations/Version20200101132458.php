@@ -27,6 +27,8 @@ final class Version20200101132458 extends AbstractMigration
         $this->addSql('ALTER TABLE comment ADD user_id INT NOT NULL');
         $this->addSql('ALTER TABLE comment ADD CONSTRAINT FK_9474526CA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('CREATE INDEX IDX_9474526CA76ED395 ON comment (user_id)');
+        $this->addSql('ALTER TABLE user ADD avatar VARCHAR(255) NOT NULL');
+
     }
 
     public function down(Schema $schema) : void
@@ -39,5 +41,7 @@ final class Version20200101132458 extends AbstractMigration
         $this->addSql('ALTER TABLE comment DROP FOREIGN KEY FK_9474526CA76ED395');
         $this->addSql('DROP INDEX IDX_9474526CA76ED395 ON comment');
         $this->addSql('ALTER TABLE comment DROP user_id');
+        $this->addSql('ALTER TABLE user DROP avatar');
+
     }
 }

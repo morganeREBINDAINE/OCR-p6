@@ -12,6 +12,7 @@ require('./single.js');
 require('./edit-form.js');
 require('./create-form.js');
 require('./forms.js');
+require('./user-form.js');
 
 document.addEventListener("DOMContentLoaded", function (event) {
     var height = document.body.offsetHeight

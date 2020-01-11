@@ -6,6 +6,8 @@
             <h1 class="h3 mb-4">S'inscrire</h1>
             {{ form_start(form) }}
                 {{ form_row(form.username) }}
+                {{ form_row(form.avatarFile) }}
+                <div id="avatar-name"></div>
                 {{ form_row(form.email) }}
                 {{ form_row(form.password.first) }}
                 {{ form_row(form.password.second) }}
