@@ -72,3 +72,9 @@ body {
 .loader {
   display: none;
 }
+
+.stickybottom {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
