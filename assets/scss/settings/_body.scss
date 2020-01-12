@@ -83,3 +83,8 @@ body {
   height: 0;
   overflow: hidden;
 }
+
+.error-msg {
+  color: $error;
+  font-size: 14px;
+}

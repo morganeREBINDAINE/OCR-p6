@@ -11,6 +11,14 @@
             </div>
         </div>
         <div class="container text-center mb-5">
+
+            {% for message in app.flashes('success-create') %}
+                <div class="alert alert-success w-90 mx-auto mt-4">{{ message }}</div>
+            {% endfor %}
+            {% for message in app.flashes('error-create') %}
+                <div class="alert alert-danger w-90 mx-auto mt-4">{{ message }}</div>
+            {% endfor %}
+
             <div class="row tricks" id="tricks">
                 {% include 'parts/list-tricks.html.twig' %}
             </div>

@@ -6,29 +6,43 @@ if (urlRegex.test(window.location.pathname)) {
         $('#media-images').empty()
         $('.delete_imgs_btn').remove()
         if (evt.target.files.length > 0) {
+            var error = false
             for (i = 0; i < evt.target.files.length; i++) {
-                var reader = new FileReader();
+                if (mimes.includes(evt.target.files[i].type)) {
+                    var reader = new FileReader();
 
-                reader.onload = function(event) {
-                    const image = $('<div class="image generated" style="background-image: url('+event.target.result+')"></div>').append(image)
-                    $('#media-images').append(image)
+                    reader.onload = function(event) {
+                        const image = $('<div class="image generated" style="background-image: url('+event.target.result+')"></div>').append(image)
+                        $('#media-images').append(image)
+                    }
+
+                    reader.readAsDataURL(evt.target.files[i]);
                 }
-
-                reader.readAsDataURL(evt.target.files[i]);
+                else {
+                    error = true
+                }
             }
 
-            $('<a class=" delete_imgs_btn btn btn-danger">Supprimer les images</a>').insertAfter($('#media-images'))
-
-
-            $('.delete_imgs_btn').on('click', (evt) => {
-                evt.preventDefault()
+            if (error) {
                 $('#trick_imagesFiles').val('')
-                $('#media-images').empty()
-                $('.delete_imgs_btn').remove()
-                $('.add_imgs_btn').html('Ajouter des images')
-            })
+                $('#errors').show().html('Merci de ne sélectionner que jpg ou png. Un autre type de fichier a été détecté.').delay(4000).hide()
+            } else {
+                $('#errors').hide()
+                $('#photos-title').show()
+                $('<a class=" delete_imgs_btn btn btn-blue">Supprimer les images</a>').insertAfter($('#media-images'))
 
-            $('.add_imgs_btn').html('Modifier les images')
+                $('.delete_imgs_btn').on('click', (evt) => {
+                    evt.preventDefault()
+                    $('#trick_imagesFiles').val('')
+                    $('#media-images').empty()
+                    $('.delete_imgs_btn').remove()
+                    $('.add_imgs_btn').html('Ajouter des images')
+                    $('#photos-title').hide()
+                })
+
+                $('.add_imgs_btn').html('Modifier les images')
+            }
+
         }
     })
 
@@ -40,21 +54,25 @@ if (urlRegex.test(window.location.pathname)) {
 
     // main img display preview
     $('#trick_mainImageFile').on('change', (evt) => {
-        if (evt.target.files.length > 0) {
+        if (evt.target.files.length > 0 && mimes.includes(evt.target.files[0].type)) {
             $('.trick-image-edit, .trick-image-delete').show()
             $('.trick-image-add').hide()
+
+            var reader = new FileReader();
+
+            reader.onload = function(event) {
+                $('.generated.main').remove()
+                const image = $('<div class="image generated main" style="background-image: url('+event.target.result+')"></div>')
+                $('#mainphoto-title').show().append(image)
+
+                $('.content-img').css('background-image', 'url('+event.target.result+')').addClass('has-image')
+            }
+
+            reader.readAsDataURL(evt.target.files[0]);
+        } else {
+            $('#trick_mainImageFile').val('')
+            $('#errors').show().html('Merci de ne sélectionner que jpg ou png. Un autre type de fichier a été détecté.').delay(4000).hide()
         }
-        var reader = new FileReader();
-
-        reader.onload = function(event) {
-            $('.generated.main').remove()
-            const image = $('<div class="image generated main" style="background-image: url('+event.target.result+')"></div>')
-            $('#media-images').prepend(image)
-
-            $('.content-img').css('background-image', 'url('+event.target.result+')').addClass('has-image')
-        }
-
-        reader.readAsDataURL(evt.target.files[0]);
     })
 
     // empty input mainImg
@@ -65,6 +83,8 @@ if (urlRegex.test(window.location.pathname)) {
         $('.content-img').css('background-image', 'url(/images/placehold.jpg)')
         $('.trick-image-edit, .trick-image-delete').hide()
         $('.trick-image-add').show()
+        $('#mainphoto-title').hide()
+        $('#errors').hide()
     })
 
     //add video
@@ -72,15 +92,15 @@ if (urlRegex.test(window.location.pathname)) {
     $('.add_videos_btn').on('click', (evt)=> {
         evt.preventDefault()
         $('.add_videos_btn').hide()
-        $('.content-content-btn').append($('<div id="div-input-video"><label>Collez une balise iframe</label><input id="input-video" type="text" placeholder="<iframe src=...></iframe>"></div>'))
+        $('.content-content-btn').append($('<div class="div-input-video"><label>Collez une balise iframe puis entrez</label><input class="input-video form-control" type="text" placeholder="<iframe src=...></iframe>"><span class="error-msg input-video-error"></span></div>'))
 
         const addVideo = (evt) => {
-            // @todo error msg if not match regex
             const element = evt.target.value
             const regex = new RegExp('^<iframe.+>$')
 
             if (regex.test(element)) {
                 const video = $('<div col="col-sm"><div class="video">'+element+'<div class="image-icons"><a class="trick-video-delete"><i class="fas fa-trash-alt"></i></a></div></div></div>')
+                $('#videos-title').show()
                 $('#media-videos').append(video)
 
                 //delete previewed video
@@ -94,19 +114,23 @@ if (urlRegex.test(window.location.pathname)) {
                         if (allVideos[i] == targetVideo) {
                             videos.splice(i, 1)
                             $(targetVideo).remove()
+                            if(videos.length === 0){
+                                $('#videos-title').hide()
+                            }
                         }
                     }
                 })
 
-
                 videos.push(element)
-                $('#div-input-video').remove()
+                $('.div-input-video').remove()
                 $('.add_videos_btn').show()
+            } else {
+                $(evt.target.nextSibling).html('Balise iframe incorrecte !')
             }
         }
 
-        $('#input-video').blur(addVideo)
-        $('#input-video').keydown((evt) => {
+        $('.input-video').blur(addVideo)
+        $('.input-video').keydown((evt) => {
             if (evt.keyCode === 13) {
                 addVideo(evt)
             }

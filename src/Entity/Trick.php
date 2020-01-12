@@ -42,7 +42,6 @@ class Trick
      *      minMessage = "Le titre doit comporter au moins {{ limit }} caractères.",
      *      maxMessage = "Le titre doit comporter moins de {{ limit }} caractères."
      * )
-     * @Assert\Unique
      */
     private $name;
 

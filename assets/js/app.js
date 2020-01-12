@@ -9,9 +9,9 @@
 require('../scss/app.scss');
 require('./homepage.js');
 require('./single.js');
+require('./forms.js');
 require('./edit-form.js');
 require('./create-form.js');
-require('./forms.js');
 require('./user-form.js');
 
 document.addEventListener("DOMContentLoaded", function (event) {

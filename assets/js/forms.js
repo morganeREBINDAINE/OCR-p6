@@ -10,3 +10,9 @@ $(window).keydown(function(event){
         event.preventDefault();
     }
 });
+
+// file types accepted
+const mimes = [
+    "image/jpeg",
+    "image/png"
+]
