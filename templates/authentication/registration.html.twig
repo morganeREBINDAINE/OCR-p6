@@ -5,12 +5,18 @@
         <div class="container">
             <h1 class="h3 mb-4">S'inscrire</h1>
             {{ form_start(form) }}
-                {{ form_row(form.username) }}
-                {{ form_row(form.avatarFile) }}
-                <div id="avatar-name"></div>
-                {{ form_row(form.email) }}
-                {{ form_row(form.password.first) }}
-                {{ form_row(form.password.second) }}
+            {{ form_row(form.username) }}
+            {{ form_label(form.avatarFile) }}
+            <div class="text-center mb-3">
+                <button class="btn btn-blue" id="add-avatar-btn">Choisir</button>
+            </div>
+            <div class="hidden-field">
+                {{ form_widget(form.avatarFile) }}
+            </div>
+            <div id="avatar-name"></div>
+            {{ form_row(form.email) }}
+            {{ form_row(form.password.first) }}
+            {{ form_row(form.password.second) }}
             <button class="btn btn-red" type="submit">Envoyer</button>
             {{ form_end(form) }}
         </div>

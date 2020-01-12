@@ -4,9 +4,6 @@
     <div class="other-forms" id="login">
         <div class="container">
             <form method="post">
-                {% if error %}
-                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                {% endif %}
                 {% for message in app.flashes('success') %}
                     <div class="alert alert-success">{{ message }}</div>
                 {% endfor %}
@@ -35,6 +32,9 @@
                 <button class="btn btn-red" type="submit">
                     Envoyer
                 </button>
+                {% if error %}
+                    <div class="mt-3 alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
             </form>
             <div class="links">
                 <a href="{{ path('forgotten_password') }}">Mot de passe oublié</a> -

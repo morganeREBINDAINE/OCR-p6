@@ -5,14 +5,18 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @Vich\Uploadable
+ * @UniqueEntity("email", message="Email déjà associé à un compte")
+ * @UniqueEntity("username", message="Pseudo déjà associé à un compte")
  */
 class User implements UserInterface
 {
@@ -25,6 +29,10 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Regex(
+     *     pattern="#^[a-z0-9]{3,12}$#i",
+     *     message="Le pseudo doit contenir entre 3 et 10 caractères."
+     * )
      */
     protected $username;
 
@@ -36,11 +44,18 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\Regex(
+     *     pattern="#^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$#",
+     *     message="Le mot de passe doit contenir au moins 8 caractères, dont une lettre et un chiffre."
+     * )
      */
     protected $password;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(
+     *     message = "L'email entré n'est pas valide."
+     * )
      */
     protected $email;
 
@@ -50,7 +65,7 @@ class User implements UserInterface
     private $created;
 
     /**
-     * @ORM\OneToMany(targetEntity="Token", mappedBy="user", orphanRemoval=true,cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Token", mappedBy="user", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $tokens;
 
@@ -67,6 +82,11 @@ class User implements UserInterface
 
     /**
      * @Vich\UploadableField(mapping="user_avatar", fileNameProperty="avatar")
+     * @Assert\File(
+     *     maxSize="2M", maxSizeMessage="Le fichier ne peut excéder 2Mo",
+     *     mimeTypes = {"image/jpeg", "image/png"},
+     *     mimeTypesMessage = "Merci de choisir une image jpeg ou png."
+     * )
      * @var File|null
      */
     private $avatarFile;

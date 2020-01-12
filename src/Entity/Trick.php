@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\PreRemove;
 use Doctrine\ORM\Mapping\PreUpdate;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
@@ -37,11 +36,22 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 30,
+     *      minMessage = "Le titre doit comporter au moins {{ limit }} caractères.",
+     *      maxMessage = "Le titre doit comporter moins de {{ limit }} caractères."
+     * )
+     * @Assert\Unique
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(
+     *      min = 50,
+     *      minMessage = "Le descriptif de la figure doit comporter au moins {{ limit }} caractères."
+     * )
      */
     private $description;
 
@@ -75,16 +85,23 @@ class Trick
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Image")
      * @JoinColumn(name="main_image_id", referencedColumnName="id", onDelete="set null", nullable=true)
+     * @Assert\Valid
      */
     private $mainImage;
 
     /**
      * @var File|null
+     * @Assert\File(
+     *     maxSize="4M", maxSizeMessage="Le fichier ne peut excéder 4Mo",
+     *     mimeTypes = {"image/jpeg", "image/png"},
+     *     mimeTypesMessage = "Merci de choisir une image jpeg ou png."
+     * )
      */
     private $mainImageFile;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @Assert\Choice(choices=Trick::GROUPS)
      */
     private $trickGroup;
 
