@@ -21,11 +21,18 @@
 
         <div class="content-content">
             <div id="media">
-                <h4 class="text-center mt-4">Photos du trick</h4><br>
+                <div id="errors" class="alert alert-danger"></div>
+                <div id="mainphoto-title">
+                    <h4 class="text-center mt-4" >Photo principale</h4>
+                </div>
+                <div id="photos-title">
+                    <h4 class="text-center mt-4" >Photos du trick</h4><br>
+                    <p>Si vous ne choisissez pas d'image principale, elle sera sélectionnée automatiquement</p>
+                </div>
                 <div id="media-images">
                 {% include 'parts/list-images.html.twig' with {images: trick.images} %}
                 </div>
-                <h4 class="text-center mt-4">Vidéos du trick</h4><br>
+                <h4 class="text-center mt-4" id="videos-title">Vidéos du trick</h4><br>
                 <div id="media-videos">
                 {% include 'parts/list-videos.html.twig' with {videos: trick.videos} %}
                 </div>

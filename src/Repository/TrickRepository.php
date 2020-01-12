@@ -36,6 +36,6 @@ class TrickRepository extends ServiceEntityRepository
     public function save(Trick $trick)
     {
         $this->getEntityManager()->persist($trick);
-        $this->getEntityManager()->flush();
+        return $this->getEntityManager()->flush();
     }
 }

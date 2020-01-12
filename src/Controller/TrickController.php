@@ -24,7 +24,7 @@ class TrickController extends AbstractController
      */
     public function displayTrick(Trick $trick, Request $request, EntityManagerInterface $entityManager, CommentRepository $commentRepository)
     {
-        $comments = $commentRepository->findPaginated(5, 0, $trick);
+        $comments = $commentRepository->findPaginated(10, 0, $trick);
 
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
@@ -35,7 +35,7 @@ class TrickController extends AbstractController
             $comment->setTrick($trick)->setUser($this->getUser());
             $entityManager->persist($comment);
             $entityManager->flush();
-            $this->addFlash('success', 'Votre commentaire a bien été ajouté.');
+            $this->addFlash('success-comment', 'Votre commentaire a bien été ajouté.');
             return $this->redirectToRoute('display_trick', ['id' => $trick->getId()]);
         }
 
@@ -82,13 +82,17 @@ class TrickController extends AbstractController
                     $video->setBalise($balise)->setTrick($trick);
                     $entityManager->persist($video);
                 } else {
-                    $this->addFlash('error', 'Cependant, une des balises vidéos n\'est pas conforme. Vous pouvez tenter d\'en ajouter en cliquant sur l\'icône d\'édition.');
+                    $this->addFlash('error', 'La balise '.$balise.' n\'est pas conforme.');
                 }
             }
 
-            $trickRepository->save($trick);
-            $this->addFlash('success', 'Votre figure a bien été créée. La voici !');
-            return $this->redirectToRoute('display_trick', ['id' => $trick->getId()]);
+            try {
+                $trickRepository->save($trick);
+                $this->addFlash('success-create', 'Votre figure a bien été créée.');
+            } catch(\Exception $e) {
+                $this->addFlash('error-create', 'Il y a eu une erreur lors de l\'enregistrement de votre figure.') ;
+            }
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('tricks/form.html.twig', [
@@ -116,7 +120,7 @@ class TrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $trickRepository->save($trick);
-            $this->addFlash('success', 'Votre figure a bien été modifiée.');
+            $this->addFlash('success-edit', 'Votre figure a bien été modifiée.');
             return $this->redirectToRoute('display_trick', ['id' => $trick->getId()]);
         }
 

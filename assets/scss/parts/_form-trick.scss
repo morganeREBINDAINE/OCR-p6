@@ -1,4 +1,7 @@
 .trick-form {
+  #mainphoto-title,#photos-title, #videos-title, #errors {
+    display: none;
+  }
 
   //image on top
   .content-img {
@@ -7,26 +10,32 @@
         display: none;
       }
     }
-    label{
+
+    label {
       margin-bottom: 10px;
     }
+
     input {
       min-width: 400px;
     }
   }
 
 
-
-
   i {
-    color: $blue!important;
+    color: $blue !important;
   }
-
 
 
   .input-video {
     max-width: 400px;
+    margin: auto;
+
+    &-error {
+      position: relative;
+      top: 5px;
+    }
   }
+
   #media {
     .trick-image-delete {
       background: none;
@@ -45,6 +54,7 @@
     &:hover .mainimg-btn {
       display: block;
     }
+
     .mainimg-btn {
       background: #fffc;
       position: absolute;
@@ -60,13 +70,13 @@
     }
   }
 
-  .generated > * {
-    width: 200px;
-    height: 100px;
+  .generated.main {
+    margin: auto!important;
   }
 
   label {
-    margin-bottom: 10px
-  ;
+    margin-bottom: 10px;
   }
+
 }
+

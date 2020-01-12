@@ -1,7 +1,5 @@
 .single-trick {
-  @include resp-tablet {
-    min-height: 1000px;
-  }
+  color: $darkblue;
   .background-img {
       @include resp-tablet {
         width: 100%;
@@ -12,8 +10,13 @@
         opacity: 0.5;
       }
   }
-  color: $darkblue;
+  #medias {
+    display: none;
 
+    @include resp-tablet {
+      display: block!important;
+    }
+  }
 
   .trick {
     position: relative;
@@ -64,13 +67,9 @@
     &-details {
       width: 100%;
       background: $white;
-      box-shadow: 0 0 15px $grey;
+      box-shadow: 0 0 70px 20px $grey;
       overflow: hidden;
       border-radius: 10px;
-
-      @include resp-tablet {
-        border-radius: 10px;
-      }
     }
 
     &-img {

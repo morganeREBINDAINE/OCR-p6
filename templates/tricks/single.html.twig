@@ -16,6 +16,9 @@
             </div>
             {% include('parts/delete-modal.html.twig') %}
         </div>
+        {% for message in app.flashes('success-edit') %}
+            <div class="alert alert-success w-90 mx-auto mt-4">{{ message }}</div>
+        {% endfor %}
         <div class="content-content">
             <div id="medias">
                 <div class="row">
@@ -23,6 +26,7 @@
                     {% include 'parts/list-videos.html.twig' with {videos: trick.videos} %}
                 </div>
             </div>
+            <button class="btn btn-blue d-md-none" id="show-medias">Voir les médias</button>
 
             {#            <button class="btn btn-primary" type="button">Voir les médias</button>#}
 
@@ -51,6 +55,9 @@
             <div class="comments-area">
                 {% if app.user %}
                     <hr>
+                    {% for message in app.flashes('success-comment') %}
+                        <div class="alert alert-success">{{ message }}</div>
+                    {% endfor %}
                     <h4>Ajouter un commentaire</h4>
                     {{ form_start(form) }}
                     {{ form_row(form.content) }}

@@ -33,10 +33,8 @@ class AuthenticationController extends AbstractController
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('authentication/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('authentication/login.html.twig', ['error' => $error]);
     }
 
     /**
@@ -90,7 +88,6 @@ class AuthenticationController extends AbstractController
             return $this->render('home/message.html.twig');
         }
 
-        // @todo invalid token message
         throw new NotFoundHttpException();
     }
 
@@ -143,7 +140,7 @@ class AuthenticationController extends AbstractController
                 'form' => $form->createView()
             ]);
         }
-        // @todo invalid token message
+
         throw new NotFoundHttpException();
     }
 }

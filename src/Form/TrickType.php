@@ -26,9 +26,7 @@ class TrickType extends AbstractType
                 'config' => array('toolbar' => 'basic'),
             ])
             ->add('trickGroup', ChoiceType::class, [
-                'choices' => [
-                    Trick::GROUPS
-                ],
+                'choices' => Trick::GROUPS,
                 'label' => 'Catégorie du trick'
             ])
             ->addEventListener(

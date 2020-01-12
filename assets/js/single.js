@@ -1,5 +1,21 @@
 $('#flash').modal('show')
 
+
+$('#show-medias').on('click', (evt) => {
+    evt.preventDefault()
+    $('#medias').toggle()
+    console.log($(evt.target).html())
+    switch ($(evt.target).html()) {
+        case 'Voir les médias':
+            $(evt.target).html('Cacher les médias')
+            break
+        case 'Cacher les médias':
+            $(evt.target).html('Voir les médias')
+            break
+    }
+})
+
+
 $('.load-comments-btn').on('click', () => {
     $('.load-comments-btn').hide()
     $('.loader').show()
