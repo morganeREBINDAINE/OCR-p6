@@ -52,6 +52,10 @@ class AuthenticationController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $encoder, UserRepository $userRepository, Mailer $mailer)
     {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('home');
+        }
+
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
 
@@ -75,6 +79,10 @@ class AuthenticationController extends AbstractController
      */
     public function validate(Token $validToken, EntityManagerInterface $entityManager)
     {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('home');
+        }
+
         if ($validToken && $validToken->getType() === 'subscription' && $validToken->getAccessed() === null) {
             $validToken->setAccessed(new \DateTimeImmutable());
             $entityManager->flush();
@@ -91,6 +99,10 @@ class AuthenticationController extends AbstractController
      */
     public function forgottenPassword(Request $request, UserRepository $userRepository, Mailer $mailer)
     {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('home');
+        }
+
         if ($request->isMethod('POST') && $request->request->get('email')) {
             if ($user = $userRepository->findOneBy(['email' => $request->request->get('email')])) {
                 $mailer->sendForgottenPasswordMail($user);
@@ -109,6 +121,10 @@ class AuthenticationController extends AbstractController
      */
     public function resetPassword(Token $validToken, EntityManagerInterface $entityManager, Request $request, UserPasswordEncoderInterface $encoder, TokenRepository $tokenRepository)
     {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('home');
+        }
+
         if ($validToken && $validToken->getType() === 'forgotten_password' && $validToken->getAccessed() === null) {
             $user = $validToken->getUser();
             $form = $this->createForm(ResetPasswordType::class, $user);
