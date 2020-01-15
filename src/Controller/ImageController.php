@@ -34,7 +34,7 @@ class ImageController extends AbstractController
                 $images = $trick->getImages();
                 $images->removeElement($image);
                 $images->isEmpty() ? $trick->setMainImage(null) : $trick->setMainImage($images->first());
-                $changed = $trick->getMainImage() ? $trick->getMainImage()->getImageName() : 'placehold.jpg';
+                $changed = $trick->getMainImage() ? $trick->getMainImage()->getImageName() : 'empty';
             }
             $em = $this->getDoctrine()->getManager();
             $em->remove($image);

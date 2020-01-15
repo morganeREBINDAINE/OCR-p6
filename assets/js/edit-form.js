@@ -1,6 +1,11 @@
 const urlRegex = new RegExp('^/modifier-figure-[0-9]{1,}$')
 
 if (urlRegex.test(window.location.pathname)) {
+    const mimes = [
+        "image/jpeg",
+        "image/png"
+    ]
+
     // get trick from URL
     const trickID = window.location.pathname.split('-')[2]
 
@@ -26,7 +31,6 @@ if (urlRegex.test(window.location.pathname)) {
             data: formData,
             async: true,
             success: (data) => {
-                console.log(data)
                 if (data.changed !== false) {
                     (data.changed === 'empty') ?
                         $('.content-img').css('background-image', 'url(/images/placehold.jpg)') :
@@ -35,7 +39,6 @@ if (urlRegex.test(window.location.pathname)) {
                 $(actualBtn[0].parentElement.parentElement).remove()
             },
             error: (e) => {
-                console.log('error ajax', e)
             }
         })
     }
@@ -64,7 +67,6 @@ if (urlRegex.test(window.location.pathname)) {
             },
             error: (e) => {
                 actualBtn.show()
-                console.log('error ajax', e)
             }
         })
     }
@@ -121,7 +123,7 @@ if (urlRegex.test(window.location.pathname)) {
         var error = false
 
         for (var i = 0; i < evt.target.files.length; i++) {
-            if (mimes.includes(evt.target.files[i].type)) {
+            if (mimes.includes(evt.target.files[i].type) && evt.target.files[i].size < 2000000) {
                 formData.append('file' + i, evt.target.files[i])
             } else {
                 error = true
@@ -158,7 +160,11 @@ if (urlRegex.test(window.location.pathname)) {
         })
 
         if (error) {
-            $('#errors').show().html('Merci de ne sélectionner que jpg ou png. Un autre type de fichier a été détecté.').delay(4000).hide()
+            $('#trick_imagesFiles').val('')
+            $('#errors').show().html('Les images doivent être de format jpg ou png, inférieures à 2Mo. Une image (ou plusieurs) non conforme a été détectée et ignorée.')
+            setTimeout(()=> {
+                $('#errors').hide()
+            }, 5000)
         }
     })
 
@@ -187,14 +193,12 @@ if (urlRegex.test(window.location.pathname)) {
                     data: formData,
                     async: true,
                     success: (data) => {
-                        console.log('success', data)
                         $('.div-input-video').remove()
                         $('#media-videos').append(data.view)
                         $('.add_videos_btn').show()
                         $('.trick-video-delete').off('click').on('click', deleteVideosButtonsEffect)
                     },
                     error: (e) => {
-                        console.log('error', e)
                         $('.div-input-video').remove()
                         $('.add_videos_btn').show()
                     }

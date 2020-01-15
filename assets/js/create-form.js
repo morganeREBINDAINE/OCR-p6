@@ -1,6 +1,11 @@
-const urlRegex = new RegExp('^/creer-figure$')
+var urlRegex = new RegExp('^/creer-figure$')
 
 if (urlRegex.test(window.location.pathname)) {
+    const mimes = [
+        "image/jpeg",
+        "image/png"
+    ]
+
     //display image preview
     $('#trick_imagesFiles').on('change', (evt) => {
         $('#media-images').empty()
@@ -8,7 +13,7 @@ if (urlRegex.test(window.location.pathname)) {
         if (evt.target.files.length > 0) {
             var error = false
             for (i = 0; i < evt.target.files.length; i++) {
-                if (mimes.includes(evt.target.files[i].type)) {
+                if (mimes.includes(evt.target.files[i].type) && evt.target.files[i].size < 2000000) {
                     var reader = new FileReader();
 
                     reader.onload = function(event) {
@@ -25,7 +30,10 @@ if (urlRegex.test(window.location.pathname)) {
 
             if (error) {
                 $('#trick_imagesFiles').val('')
-                $('#errors').show().html('Merci de ne sélectionner que jpg ou png. Un autre type de fichier a été détecté.').delay(4000).hide()
+                $('#errors').show().html('Les images doivent être de format jpg ou png, inférieures à 2Mo. Une image (ou plusieurs) non conforme a été détectée et ignorée.')
+                setTimeout(()=> {
+                    $('#errors').hide()
+                }, 5000)
             } else {
                 $('#errors').hide()
                 $('#photos-title').show()

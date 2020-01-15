@@ -55,7 +55,6 @@ $('.load-btn').on('click', function() {
         },
         error: () => {
             $('.loader').hide()
-            console.log('error ajax')
         }
     })
 })
