@@ -71,13 +71,12 @@ class ImageController extends AbstractController
     /**
      * @Route("/create-images", name="create_images")
      * @param Request                $request
-     * @param ImageRepository        $imageRepository
      * @param TrickRepository        $trickRepository
      * @param EntityManagerInterface $entityManager
      *
      * @return JsonResponse
      */
-    public function create(Request $request, ImageRepository $imageRepository, TrickRepository $trickRepository, EntityManagerInterface $entityManager)
+    public function create(Request $request, TrickRepository $trickRepository, EntityManagerInterface $entityManager)
     {
         $trick = $trickRepository->find($request->request->get('trick'));
         if (!$trick) {

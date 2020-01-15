@@ -15,7 +15,7 @@ $(window).keydown(function(event){
 const displayErrorUploadedImages = (target) => {
     target.val('')
     $('#errors').show().html('Erreur: Les images doivent être de format jpg ou png, inférieures à 2Mo. Merci de resélectionner une/des image(s) conforme(s).')
-    setTimeout(()=> {
+    setTimeout(() => {
         $('#errors').hide()
     }, 6000)
 }
