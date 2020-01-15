@@ -26,9 +26,9 @@
                     {% include 'parts/list-videos.html.twig' with {videos: trick.videos} %}
                 </div>
             </div>
+            {% if trick.images is not empty or trick.videos is not empty %}
             <button class="btn btn-blue d-md-none" id="show-medias">Voir les médias</button>
-
-            {#            <button class="btn btn-primary" type="button">Voir les médias</button>#}
+            {% endif %}
 
             <div class="content-description">
                 <h4>Descriptif du trick</h4>
@@ -36,16 +36,16 @@
             </div>
 
             <div class="content-infos">
-                <div class="text-right">
+                <div class="text-md-right text-center">
                     <div class="content-infos-group">{{ trick.trickGroup }}</div>
 
                 </div>
                 <div class="row content-infos-date">
-                    <div class="col-sm text-left">
+                    <div class="col-md text-md-left">
                         <span class="content-infos-date-creation">Rédigé le {{ trick.created | date('d/m/Y') }}</span>
                     </div>
                     {% if trick.updated %}
-                        <div class="col-sm text-right">
+                        <div class="col-md text-md-right">
                             <span class="content-infos-date-updated">Mis à jour le {{ trick.updated | date('d/m/Y') }}</span>
                         </div>
                     {% endif %}

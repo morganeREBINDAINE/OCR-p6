@@ -4,7 +4,6 @@ $('#flash').modal('show')
 $('#show-medias').on('click', (evt) => {
     evt.preventDefault()
     $('#medias').toggle()
-    console.log($(evt.target).html())
     switch ($(evt.target).html()) {
         case 'Voir les médias':
             $(evt.target).html('Cacher les médias')
@@ -46,7 +45,6 @@ $('.load-comments-btn').on('click', () => {
         },
         error: () => {
             $('.loader').hide()
-            console.log('error ajax')
         }
     })
 })

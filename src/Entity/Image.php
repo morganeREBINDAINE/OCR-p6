@@ -30,7 +30,7 @@ class Image
     /**
      * @Vich\UploadableField(mapping="trick_image", fileNameProperty="imageName")
      * @Assert\File(
-     *     maxSize="4M", maxSizeMessage="Le fichier ne peut excéder 4Mo",
+     *     maxSize="2M", maxSizeMessage="Le fichier ne peut excéder 2Mo",
      *     mimeTypes = {"image/jpeg", "image/png"},
      *     mimeTypesMessage = "Merci de choisir une image jpeg ou png."
      * )

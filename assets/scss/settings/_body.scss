@@ -9,10 +9,20 @@ body {
       color: darken($darkblue, 10%);
     }
   }
+  h1 {
+    margin-top: 40px;
+
+    @include resp-tablet {
+      margin-top: 0px;
+    }
+  }
   h4 {
     font-size: 20px;
     margin-bottom: 20px;
-    padding-top: 20px;
+    padding-top: 0px;
+    @include resp-tablet {
+      padding-top: 20px;
+    }
   }
   .body {
     @include resp-tablet {
@@ -56,15 +66,33 @@ body {
     .logo {
       width: 90px;
       position: absolute;
-      top: 0;
+      top: -13px;
       box-shadow: 0 0 10px 3px #64909a;
       border-radius: 99px;
+    }
+  }
+  .burger-icon {
+    div {
+      height: 4px;
+      width: 35px;
+      background: $white;
+      border-radius: 99px;
+
+      &:nth-child(2) {
+        margin: 6px auto;
+      }
     }
   }
 
   // footer
   footer {
     padding: 40px 0;
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+    @include resp-tablet {
+      margin-bottom: 0px;
+    }
   }
 }
 
@@ -87,4 +115,8 @@ body {
 .error-msg {
   color: $error;
   font-size: 14px;
+}
+
+.form-group {
+  width: 100%;
 }

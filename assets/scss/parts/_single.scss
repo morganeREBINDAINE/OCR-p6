@@ -34,8 +34,12 @@
     }
 
     &-description {
-      margin:40px 0 40px;
+      margin: 0 0 40px;
       color: $darkblue;
+
+      @include resp-tablet {
+        margin-top: 40px;
+      }
     }
 
     &-infos {
@@ -73,18 +77,22 @@
     }
 
     &-img {
-      height: 300px;
+      height: 200px;
       width: 100%;
       background-position: center;
       background-size: cover;
       background-image: url(/images/placehold.jpg);
+
+      @include resp-tablet {
+        height: 300px;
+      }
 
 
       &-name {
         position: relative;
         width: 100%;
         text-align: center;
-        font-size: 35px;
+        font-size: 25px;
         color: white;
         text-transform: uppercase;
         letter-spacing: 7px;
@@ -94,11 +102,20 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        padding: 0 5px;
+
+        @include resp-tablet {
+          font-size: 35px;
+        }
       }
     }
 
     &-content {
-      padding: 40px;
+      padding: 10px;
+
+      @include resp-tablet {
+        padding: 40px;
+      }
 
       .image, .video {
         position: relative;
@@ -132,7 +149,11 @@
     }
 
     .comments-area {
-      margin: 40px auto;
+      margin-top: 40px;
+
+      @include resp-tablet {
+        margin: 40px auto;
+      }
 
       form {
         width: 90%;
