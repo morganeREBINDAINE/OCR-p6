@@ -85,8 +85,6 @@ class TrickController extends AbstractController
                     $video = new Video();
                     $video->setBalise($balise)->setTrick($trick);
                     $entityManager->persist($video);
-                } else {
-                    $this->addFlash('error', 'La balise ' . $balise . ' n\'est pas conforme.');
                 }
             }
             try {
