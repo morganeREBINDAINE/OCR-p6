@@ -10,3 +10,12 @@ $(window).keydown(function(event){
         event.preventDefault();
     }
 });
+
+// display flash error message on improper uploaded image
+const displayErrorUploadedImages = (target) => {
+    target.val('')
+    $('#errors').show().html('Erreur: Les images doivent être de format jpg ou png, inférieures à 2Mo. Merci de resélectionner une/des image(s) conforme(s).')
+    setTimeout(()=> {
+        $('#errors').hide()
+    }, 6000)
+}

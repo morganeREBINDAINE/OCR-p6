@@ -71,6 +71,8 @@ class Image
 
     /**
      * @param File $imageFile
+     *
+     * @return Image
      */
     public function setImageFile(?File $imageFile): self
     {
@@ -88,10 +90,13 @@ class Image
 
     /**
      * @param string $imageName
+     *
+     * @return Image
      */
-    public function setImageName(?string $imageName): void
+    public function setImageName(?string $imageName): self
     {
         $this->imageName = $imageName;
+        return $this;
     }
 
     /**

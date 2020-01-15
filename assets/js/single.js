@@ -1,6 +1,4 @@
-$('#flash').modal('show')
-
-
+// handle media button
 $('#show-medias').on('click', (evt) => {
     evt.preventDefault()
     $('#medias').toggle()
@@ -14,7 +12,7 @@ $('#show-medias').on('click', (evt) => {
     }
 })
 
-
+// show more comments on dedicated button click
 $('.load-comments-btn').on('click', () => {
     $('.load-comments-btn').hide()
     $('.loader').show()

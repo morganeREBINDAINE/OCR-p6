@@ -2,17 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Image;
-use App\Entity\Trick;
 use App\Entity\Video;
-use App\Repository\ImageRepository;
 use App\Repository\TrickRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\{JsonResponse, Request};
 use Symfony\Component\Routing\Annotation\Route;
 
 class VideoController extends AbstractController
@@ -32,7 +26,7 @@ class VideoController extends AbstractController
     }
 
     /**
-     * @Route("/create_video", name="create_video")
+     * @Route("/create-video", name="create_video")
      */
     public function create(Request $request, TrickRepository $trickRepository, EntityManagerInterface $entityManager)
     {

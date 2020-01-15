@@ -25,10 +25,7 @@ class Video
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Regex(
-     *     pattern="#^<iframe .?>$#",
-     *     message="La balise est incorrecte."
-     * )
+     * @Assert\NotBlank()
      */
     private $balise;
 

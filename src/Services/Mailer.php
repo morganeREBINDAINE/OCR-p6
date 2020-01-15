@@ -2,34 +2,30 @@
 
 namespace App\Services;
 
-use App\Entity\Token;
-use App\Entity\User;
+use App\Entity\{Token, User};
 use App\Repository\TokenRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mailer\{Exception\TransportExceptionInterface, MailerInterface};
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class Mailer
 {
-    /**
-     * @var UrlGeneratorInterface
-     */
+    /** @var UrlGeneratorInterface */
     private $router;
-    /**
-     * @var MailerInterface
-     */
+    /** @var MailerInterface */
     private $mailer;
-    /**
-     * @var TokenRepository
-     */
+    /** @var TokenRepository */
     private $tokenRepository;
-    /**
-     * @var EntityManagerInterface
-     */
+    /** @var EntityManagerInterface */
     private $entityManager;
 
+    /**
+     * @param UrlGeneratorInterface  $router
+     * @param MailerInterface        $mailer
+     * @param TokenRepository        $tokenRepository
+     * @param EntityManagerInterface $entityManager
+     */
     public function __construct(UrlGeneratorInterface $router, MailerInterface $mailer, TokenRepository $tokenRepository, EntityManagerInterface $entityManager)
     {
         $this->router = $router;
@@ -38,6 +34,10 @@ class Mailer
         $this->entityManager = $entityManager;
     }
 
+    /**
+     * @param User $user
+     * @throws TransportExceptionInterface
+     */
     public function sendForgottenPasswordMail(User $user) {
         $token = $this->tokenRepository->findOneBy(['user' => $user, 'type' => 'forgotten_password', 'accessed' => null]);
 
@@ -63,6 +63,10 @@ class Mailer
         $this->mailer->send($email);
     }
 
+    /**
+     * @param User $user
+     * @throws TransportExceptionInterface
+     */
     public function sendSubscriptionMail(User $user)
     {
         if ($user->isValid() === false) {

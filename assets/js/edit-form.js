@@ -1,92 +1,81 @@
-const urlRegex = new RegExp('^/modifier-figure-[0-9]{1,}$')
+// A special file has been created to handle the trick editing form.
+// Images and videos are handled dynamically to enhance pleasant UX.
 
-if (urlRegex.test(window.location.pathname)) {
-    const mimes = [
-        "image/jpeg",
-        "image/png"
-    ]
-
+if ((new RegExp('^/modifier-figure-[0-9]{1,}$')).test(window.location.pathname)) {
     // get trick from URL
     const trickID = window.location.pathname.split('-')[2]
 
     //functions
-    const deleteImagesButtonsEffect = (evt) => {
+    const deleteButtonEffect = (evt, ajax) => {
         evt.preventDefault()
-        const actualBtn = $(evt.currentTarget)
 
-
-        actualBtn.hide()
-        $(actualBtn[0].parentElement).append($('<img src="images/loader.gif" />'))
+        $(evt.currentTarget).hide()
+        $(evt.currentTarget.parentElement).append($('<img src="images/loader.gif" />'))
 
         let formData = new FormData()
         formData.append('trick', trickID)
-        formData.append('token', actualBtn[0].previousElementSibling.previousElementSibling.value)
+        formData.append('token', evt.currentTarget.previousElementSibling.previousElementSibling.value)
 
-        $.ajax({
-            url: '/delete-image-' + actualBtn[0].previousElementSibling.value,
-            type: "POST",
-            dataType: "json",
-            processData: false,
-            contentType: false,
-            data: formData,
-            async: true,
-            success: (data) => {
-                if (data.changed !== false) {
-                    (data.changed === 'empty') ?
-                        $('.content-img').css('background-image', 'url(/images/placehold.jpg)') :
-                        $('.content-img').css('background-image', 'url(/images/tricks/' + data.changed + ')')
+        ajax(formData)
+    }
+    const deleteImagesButtonsEffect = (evt) => {
+        deleteButtonEffect(evt, (formData) => {
+            $.ajax({
+                url: '/delete-image-' + evt.currentTarget.previousElementSibling.value,
+                type: "POST",
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                data: formData,
+                async: true,
+                success: (data) => {
+                    if (data.changed !== false) {
+                        (data.changed === 'empty') ?
+                            $('.content-img').css('background-image', 'url(/images/placehold.jpg)') :
+                            $('.content-img').css('background-image', 'url(/images/tricks/' + data.changed + ')')
+                    }
+                    $(evt.currentTarget.parentElement.parentElement).remove()
                 }
-                $(actualBtn[0].parentElement.parentElement).remove()
-            },
-            error: (e) => {
-            }
+            })
         })
-    }
 
+    }
     const deleteVideosButtonsEffect = (evt) => {
-        evt.preventDefault()
-        const actualBtn = $(evt.currentTarget)
-        const parentElement = evt.currentTarget.parentElement.parentElement
-
-        actualBtn.hide()
-        $(actualBtn[0].parentElement).append($('<img src="images/loader.gif" />'))
-
-        let formData = new FormData()
-        formData.append('token', actualBtn[0].previousElementSibling.previousElementSibling.value)
-
-        $.ajax({
-            url: '/delete-video-' + actualBtn[0].previousElementSibling.value,
-            type: "POST",
-            dataType: "json",
-            processData: false,
-            contentType: false,
-            data: formData,
-            async: true,
-            success: (data) => {
-                parentElement.remove()
-            },
-            error: (e) => {
-                actualBtn.show()
-            }
+        deleteButtonEffect(evt, (formData) => {
+            $.ajax({
+                url: '/delete-video-' + evt.currentTarget.previousElementSibling.value,
+                type: "POST",
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                data: formData,
+                async: true,
+                success: (data) => {
+                    evt.currentTarget.parentElement.parentElement.remove()
+                },
+                error: (e) => {
+                    $(evt.currentTarget).show()
+                }
+            })
         })
     }
-
     const changeMainImageEffect = (evt) => {
         evt.preventDefault()
         const infos = evt.currentTarget.previousElementSibling
-        const token = infos.children[0].value
-        const img = infos.children[1].value
-        const bg_img = evt.currentTarget.parentElement.style.backgroundImage
 
-        if (document.querySelector('.content-img').style.backgroundImage
-            !== evt.currentTarget.parentElement.style.backgroundImage) {
-            $('.content-img').css('background-image', bg_img)
+        const target_token = infos.children[0].value
+        const target_id = infos.children[1].value
+        const target_bg = evt.currentTarget.parentElement.style.backgroundImage
+        const mainImage_bg = document.querySelector('.content-img').style.backgroundImage
+
+        if (mainImage_bg !== target_bg) {
+            $('.content-img').css('background-image', target_bg)
             var formData = new FormData()
-            formData.append('token', token)
+            formData.append('token', target_token)
             formData.append('trick', trickID)
 
             $.ajax({
-                url: '/replace-mainimg-' + img,
+                url: '/replace-mainimg-' + target_id,
                 type: "POST",
                 dataType: "json",
                 processData: false,
@@ -106,7 +95,6 @@ if (urlRegex.test(window.location.pathname)) {
         }
     }
 
-
     // event listener
     $('.trick-image-delete').on('click', deleteImagesButtonsEffect)
     $('.trick-video-delete').on('click', deleteVideosButtonsEffect)
@@ -120,10 +108,12 @@ if (urlRegex.test(window.location.pathname)) {
 
         let formData = new FormData()
         formData.append('trick', trickID)
+
         var error = false
 
         for (var i = 0; i < evt.target.files.length; i++) {
-            if (mimes.includes(evt.target.files[i].type) && evt.target.files[i].size < 2000000) {
+            if (["image/jpeg", "image/png"].includes(evt.target.files[i].type)
+                && evt.target.files[i].size < 2000000) {
                 formData.append('file' + i, evt.target.files[i])
             } else {
                 error = true
@@ -131,7 +121,7 @@ if (urlRegex.test(window.location.pathname)) {
         }
 
         $.ajax({
-            url: '/create_images',
+            url: '/create-images',
             type: "POST",
             dataType: "json",
             processData: false,
@@ -139,6 +129,7 @@ if (urlRegex.test(window.location.pathname)) {
             data: formData,
             async: true,
             success: (data) => {
+                console.log(data)
                 if (!data.error) {
                     $('.add_imgs_btn').show()
                     $('.loader').hide()
@@ -160,11 +151,7 @@ if (urlRegex.test(window.location.pathname)) {
         })
 
         if (error) {
-            $('#trick_imagesFiles').val('')
-            $('#errors').show().html('Les images doivent être de format jpg ou png, inférieures à 2Mo. Une image (ou plusieurs) non conforme a été détectée et ignorée.')
-            setTimeout(()=> {
-                $('#errors').hide()
-            }, 5000)
+            displayErrorUploadedImages($('#trick_imagesFiles'))
         }
     })
 
@@ -177,15 +164,14 @@ if (urlRegex.test(window.location.pathname)) {
 
         const addVideo = (evt) => {
             const element = evt.target.value
-            const regex = new RegExp('^<iframe.+>$')
 
-            if (regex.test(element)) {
+            if ((new RegExp('^<iframe.+>$')).test(element)) {
                 var formData = new FormData()
                 formData.append('iframe', element)
                 formData.append('trick', trickID)
 
                 $.ajax({
-                    url: '/create_video',
+                    url: '/create-video',
                     type: "POST",
                     dataType: "json",
                     processData: false,

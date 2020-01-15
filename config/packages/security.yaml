@@ -33,6 +33,13 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/delete-, roles: ROLE_USER }
+        - { path: ^/replace-, roles: ROLE_USER }
+        - { path: ^/create-, roles: ROLE_USER }
+        - { path: ^/creer-, roles: ROLE_USER }
+        - { path: ^/modifier-, roles: ROLE_USER }
+        - { path: ^/connexion, allow_if: "is_anonymous() and !is_authenticated()" }
+        - { path: ^/inscription, allow_if: "is_anonymous() and !is_authenticated()" }
+        - { path: ^/validation, allow_if: "is_anonymous() and !is_authenticated()" }
+        - { path: ^/reset, allow_if: "is_anonymous() and !is_authenticated()" }
+        - { path: ^/mot-de-passe-oublie, allow_if: "is_anonymous() and !is_authenticated()" }
