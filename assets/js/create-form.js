@@ -1,89 +1,45 @@
-var urlRegex = new RegExp('^/creer-figure$')
+// A special file has been created to handle the trick creation form.
+// Images and videos are handled on submission, because the trick hasn't id yet.
 
-if (urlRegex.test(window.location.pathname)) {
-    const mimes = [
-        "image/jpeg",
-        "image/png"
-    ]
+if ((new RegExp('^/creer-figure$')).test(window.location.pathname)) {
+    // FUNCTIONS
+    const previewImagesUploaded = (target, treatment, onSuccess) => {
+        let error = false
 
-    //display image preview
-    $('#trick_imagesFiles').on('change', (evt) => {
-        $('#media-images').empty()
-        $('.delete_imgs_btn').remove()
-        if (evt.target.files.length > 0) {
-            var error = false
-            for (i = 0; i < evt.target.files.length; i++) {
-                if (mimes.includes(evt.target.files[i].type) && evt.target.files[i].size < 2000000) {
+        const files = target.files
+
+        if (files.length > 0) {
+            for (i = 0; i < files.length; i++) {
+                if (["image/jpeg", "image/png"].includes(files[i].type)
+                    && files[i].size < 2000000
+                ){
                     var reader = new FileReader();
 
                     reader.onload = function(event) {
-                        const image = $('<div class="image generated" style="background-image: url('+event.target.result+')"></div>').append(image)
-                        $('#media-images').append(image)
+                        treatment(event)
                     }
 
-                    reader.readAsDataURL(evt.target.files[i]);
+                    reader.readAsDataURL(files[i]);
                 }
                 else {
                     error = true
                 }
             }
-
-            if (error) {
-                $('#trick_imagesFiles').val('')
-                $('#errors').show().html('Les images doivent être de format jpg ou png, inférieures à 2Mo. Une image (ou plusieurs) non conforme a été détectée et ignorée.')
-                setTimeout(()=> {
-                    $('#errors').hide()
-                }, 5000)
-            } else {
-                $('#errors').hide()
-                $('#photos-title').show()
-                $('<a class=" delete_imgs_btn btn btn-blue">Supprimer les images</a>').insertAfter($('#media-images'))
-
-                $('.delete_imgs_btn').on('click', (evt) => {
-                    evt.preventDefault()
-                    $('#trick_imagesFiles').val('')
-                    $('#media-images').empty()
-                    $('.delete_imgs_btn').remove()
-                    $('.add_imgs_btn').html('Ajouter des images')
-                    $('#photos-title').hide()
-                })
-
-                $('.add_imgs_btn').html('Modifier les images')
-            }
-
         }
-    })
 
-    // main img trigger click
+        error ? displayErrorUploadedImages($(target)) : onSuccess()
+    }
+
+
+    // EVENTS
+
+    // trigger input on main image button click
     $('.trick-image-edit, .trick-image-add').on('click', (evt) => {
         evt.preventDefault()
         $('#trick_mainImageFile').trigger('click')
     })
 
-    // main img display preview
-    $('#trick_mainImageFile').on('change', (evt) => {
-        if (evt.target.files.length > 0 && mimes.includes(evt.target.files[0].type)) {
-            $('.trick-image-edit, .trick-image-delete').show()
-            $('.trick-image-add').hide()
-
-            var reader = new FileReader();
-
-            reader.onload = function(event) {
-                $('.generated.main').remove()
-                const image = $('<div class="image generated main" style="background-image: url('+event.target.result+')"></div>')
-                $('#mainphoto-title').show().append(image)
-
-                $('.content-img').css('background-image', 'url('+event.target.result+')').addClass('has-image')
-            }
-
-            reader.readAsDataURL(evt.target.files[0]);
-        } else {
-            $('#trick_mainImageFile').val('')
-            $('#errors').show().html('Merci de ne sélectionner que jpg ou png. Un autre type de fichier a été détecté.').delay(4000).hide()
-        }
-    })
-
-    // empty input mainImg
+    // empty input on main image trash button
     $('.trick-image-delete').on('click', (evt) => {
         evt.preventDefault()
         $('#trick_mainImageFile').val('')
@@ -93,6 +49,47 @@ if (urlRegex.test(window.location.pathname)) {
         $('.trick-image-add').show()
         $('#mainphoto-title').hide()
         $('#errors').hide()
+    })
+
+    // display trick images preview
+    $('#trick_imagesFiles').on('change', (evt) => {
+        $('#media-images').empty()
+        $('.delete_imgs_btn').remove()
+
+        previewImagesUploaded(evt.target, (event) => {
+                const image = $('<div class="image generated" style="background-image: url('+event.target.result+')"></div>').append(image)
+                $('#media-images').append(image)
+        }, () => {
+            $('#errors').hide()
+            $('#photos-title').show()
+            $('<a class=" delete_imgs_btn btn btn-blue">Supprimer les images</a>').insertAfter($('#media-images'))
+
+            $('.delete_imgs_btn').on('click', (evt) => {
+                evt.preventDefault()
+                $('#trick_imagesFiles').val('')
+                $('#media-images').empty()
+                $('.delete_imgs_btn').remove()
+                $('.add_imgs_btn').html('Ajouter des images')
+                $('#photos-title').hide()
+            })
+
+            $('.add_imgs_btn').html('Modifier les images')
+        })
+
+    })
+
+    // display main image preview
+    $('#trick_mainImageFile').on('change', (evt) => {
+        $('.trick-image-edit, .trick-image-delete').show()
+        $('.trick-image-add').hide()
+
+        previewImagesUploaded(evt.target, (event) => {
+            $('.generated.main').remove()
+            const image = $('<div class="image generated main" style="background-image: url('+event.target.result+')"></div>')
+            $('#mainphoto-title').show().append(image)
+
+            $('.content-img').css('background-image', 'url('+event.target.result+')').addClass('has-image')
+        })
     })
 
     //add video
@@ -112,8 +109,7 @@ if (urlRegex.test(window.location.pathname)) {
                 $('#media-videos').append(video)
 
                 //delete previewed video
-                $('.trick-video-delete').off('click')
-                $('.trick-video-delete').on('click', (evt) => {
+                $('.trick-video-delete').off('click').on('click', (evt) => {
                     evt.preventDefault()
                     const targetVideo = evt.currentTarget.parentElement.parentElement.parentElement
                     const allVideos = document.querySelector('#media-videos').children

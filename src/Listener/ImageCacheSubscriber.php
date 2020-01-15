@@ -2,8 +2,7 @@
 
 namespace App\Listener;
 
-use App\Entity\Image;
-use App\Entity\User;
+use App\Entity\{Image, User};
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
@@ -29,13 +28,12 @@ class ImageCacheSubscriber implements EventSubscriber
      */
     public function getSubscribedEvents()
     {
-        return [
-            'preRemove'
-        ];
+        return ['preRemove'];
     }
 
     public function preRemove(LifecycleEventArgs $args) {
         $entity = $args->getEntity();
+        // remove images in cache on Image deletion
         if($entity instanceof Image) {
             $this->cacheManager->remove($this->uploaderHelper->asset($entity, 'imageFile'));
         } elseif ($entity instanceof User) {

@@ -304,11 +304,12 @@ class Trick
 
     /**
      * @param string $trickGroup
+     *
+     * @return Trick
      */
     public function setTrickGroup($trickGroup): self
     {
         $this->trickGroup = $trickGroup;
-
         return $this;
     }
 

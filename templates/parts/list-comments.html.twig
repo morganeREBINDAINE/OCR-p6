@@ -3,11 +3,11 @@
         <div class="row">
             <div class="col-2 mt-1">
                 <div class="comment-published-avatar" style="background-image: url(
-                        {% if comment.user.avatar %}
-                {{ asset('images/avatars/' ~ comment.user.avatar) }}
-                        {% else %}
-                {{ asset('images/unknow.jpg') }}
-                        {% endif %}
+                {% if comment.user.avatar %}
+                    {{ asset('images/avatars/' ~ comment.user.avatar) }}
+                {% else %}
+                    {{ asset('images/unknow.jpg') }}
+                {% endif %}
                         )"></div>
                 <span class="comment-published-name">{{ comment.user.username }}</span>
             </div>
