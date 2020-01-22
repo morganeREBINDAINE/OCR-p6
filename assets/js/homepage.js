@@ -43,15 +43,15 @@ $('.load-btn').on('click', function() {
         success: (data) => {
             switch (data.count) {
                 case 5:
+                    $('.arrow-up').show()
                     $('.load-btn').show()
                     break
                 case 0:
-                    $('#tricks').append($('<div>Il n\'y a plus de figures.</div>'))
+                    $('#tricks').after($('<div>Il n\'y a plus de figures.</div>'))
                     break
             }
             $('.loader').hide()
             $('#tricks').append(data.view)
-            $('.arrow-up').show()
         },
         error: () => {
             $('.loader').hide()
